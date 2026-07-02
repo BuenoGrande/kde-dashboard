@@ -1,13 +1,12 @@
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { Dashboard } from "./pages/Dashboard";
-import { SkillPage } from "./pages/SkillPage";
-import { DomainList } from "./pages/DomainList";
+import { Domains } from "./pages/Domains";
 import { DomainDetail } from "./pages/DomainDetail";
-import { TeacherList } from "./pages/TeacherList";
-import { TeacherDetail } from "./pages/TeacherDetail";
-import { TeacherBrief } from "./pages/TeacherBrief";
-import { LessonLog } from "./pages/LessonLog";
+import { Writing } from "./pages/Writing";
+import { Speaking } from "./pages/Speaking";
+import { Teachers } from "./pages/Teachers";
+import { LessonLogs } from "./pages/LessonLogs";
 
 function App() {
   return (
@@ -15,16 +14,12 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/hoeren" element={<SkillPage sectionId="hoeren" />} />
-          <Route path="/lesen" element={<SkillPage sectionId="lesen" />} />
-          <Route path="/schreiben" element={<SkillPage sectionId="schreiben" />} />
-          <Route path="/sprechen" element={<SkillPage sectionId="sprechen" />} />
-          <Route path="/domains" element={<DomainList />} />
+          <Route path="/domains" element={<Domains />} />
           <Route path="/domains/:domainId" element={<DomainDetail />} />
-          <Route path="/teachers" element={<TeacherList />} />
-          <Route path="/teachers/brief" element={<TeacherBrief />} />
-          <Route path="/teachers/:teacherId" element={<TeacherDetail />} />
-          <Route path="/log" element={<LessonLog />} />
+          <Route path="/writing" element={<Writing />} />
+          <Route path="/speaking" element={<Speaking />} />
+          <Route path="/teachers" element={<Teachers />} />
+          <Route path="/logs" element={<LessonLogs />} />
         </Routes>
       </Layout>
     </HashRouter>

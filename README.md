@@ -1,89 +1,119 @@
 # KDE Prep — Pierre's Command Center
 
-A static dashboard for coordinating Pierre's preparation for the **KDE
-(Kantonaler Deutschtest für die Einbürgerung)**, Canton of Zürich, between
-Pierre and his three teachers (Heidi, Patrick, Denajdër).
+A calm, static coordination dashboard for Pierre's preparation for the **KDE
+(Kantonaler Deutschtest für die Einbürgerung)**, Canton of Zürich, shared
+between Pierre and his three teachers (Heidi, Patrick, Denajdër).
 
-It is not a curriculum or a learning app — it's a shared status board: what's
-covered, what's weak, what's next, and who should do what in the next
-session.
+It answers six questions, nothing more: Is Pierre ready? What's covered?
+What's weak? What should the next teacher do? What happened recently? What
+vocabulary/verbs/grammar/mistakes came out of each lesson?
 
 **All content shipped in this repo is sample/placeholder data** so the site
 is usable on day one. Replace it gradually with real session notes — see
 below.
 
-## What's in it
+## Design principle: one status, everywhere
 
-- **Dashboard** — exam readiness snapshot, the four exam-section cards
-  (Hören/Lesen/Schreiben/Sprechen), top priorities, recurring mistakes, next
-  planned sessions, teacher focus, recent lessons, and a collapsible
-  domain × skill coverage matrix.
-- **Hören / Lesen / Schreiben / Sprechen pages** — official format, coverage,
-  strengths/weaknesses, next drills, and skill-specific extras (Swiss German
-  listening status, writing templates + model answer, speaking structure,
-  etc.).
-- **Domains** — 12 exam-relevant life domains (health, Gemeinde, transport,
-  Swiss German survival, …), each with vocabulary, likely questions, listening
-  situations, reading texts, writing prompts, strengths/weaknesses and next
-  action.
-- **Teachers** — one page per teacher (focus, strengths, limitations, best
-  use, next session plan, cross-teacher activity so no one repeats another
-  teacher's work) plus a **Teacher Brief** page readable in under two minutes
-  before any lesson.
-- **Lesson log** — full session history, filterable by teacher.
+Every trackable thing (a domain, a writing task, a speaking checklist item)
+has exactly **one** status, from the same five-value scale:
+
+| Status | Color | Meaning |
+|---|---|---|
+| Not covered | grey | Not started |
+| Started | yellow | Some practice, not stable |
+| Needs review | orange | Practiced, but a real gap remains |
+| Ready | green | Exam-ready |
+| Planned | blue | Scheduled for an upcoming session |
+
+There is no skill-by-skill (Hören/Lesen/Schreiben/Sprechen) breakdown per
+domain — the real question for most topics is just "can Pierre handle this
+in German, yes or no." Writing and Speaking get their own pages because the
+exam needs concrete task/format competence there, not a general topic score.
+
+## Pages
+
+- **Dashboard** — readiness %, next session, domain-status counts + domains
+  needing attention, top 3 priorities, recent lesson logs, one-line teacher
+  briefs. Designed to be read in under 30 seconds.
+- **Domains** — all 12 life domains as status-colored rows; click through for
+  status, priority, teacher, last practiced date, and recent lessons.
+- **Writing** — the A2 writing-task checklist (invitation, reply, appointment
+  change, information request, apology, neighbour message), each with a
+  status, common mistakes, next drill, and a model answer where available.
+- **Speaking** — the B1 checklist (self-introduction, picture-card, follow-up
+  questions), the picture-card formula structure, repair phrases, priority
+  speaking domains, and recent speaking lessons.
+- **Teachers** — Heidi, Patrick and Denajdër's one-minute briefs, all visible
+  on one page with no clicks required: what to do next (linked to the
+  relevant domain), what not to repeat, mistakes to correct, a suggested
+  60-minute session plan, and their most recent lessons.
+- **Lesson logs** — full history, filterable by teacher, each entry showing
+  concrete vocabulary, verbs, grammar, mistakes, what Pierre can now do, and
+  what to repeat next.
 
 ## How the data model works
 
-Everything on the site is generated from one file:
+Everything on the site comes from one file:
 
 ```
 src/data/progress.ts
 ```
 
-It exports plain arrays: `sections`, `domains`, `teachers`, `sessions`,
-`plannedSessions`, `priorities`, `recurringMistakes`. Every page reads from
-these — there is no separate content to update per page. `src/data/types.ts`
-documents the shape of each object, and `src/data/reference.ts` holds fixed
-exam-format reference material (speaking structure, writing template, model
-answer) that rarely changes.
+It exports plain arrays: `skillLevels`, `teachers`, `domains`, `writingTasks`,
+`speakingChecklist`, `lessonLogs`, `plannedSessions`, `priorities`,
+`recurringMistakes`. Every page reads from these — there's no separate
+content to update per page. `src/data/types.ts` documents the shape of each
+object; `src/data/reference.ts` holds fixed exam material (speaking
+formulas, writing structure) that rarely changes.
+
+A teacher's "do this next" on the Teachers page and Dashboard is **derived**
+from `plannedSessions`, not stored separately — add/update a planned session
+once and both places update automatically.
 
 ## Update the site after a lesson
 
 1. Open `src/data/progress.ts`.
-2. Copy this template and append it to the **end** of the `sessions` array:
+2. Copy this template and append it to the **end** of the `lessonLogs` array:
 
    ```ts
    {
-     id: "s9", // next number in sequence
+     id: "l9", // next number in sequence
      date: "2026-07-10",
      teacher: "heidi", // "heidi" | "patrick" | "denajder"
-     duration: 60,
-     sections: ["sprechen"], // any of: hoeren, lesen, schreiben, sprechen
-     domains: ["health"], // ids from the `domains` array below
-     covered: "What you did in the session.",
-     wentWell: ["..."],
-     strugglesWith: ["..."],
-     recurringMistakes: ["weil-word-order"], // ids from recurringMistakes, if applicable
-     vocabulary: ["..."],
-     homework: "...",
-     recommendedNext: "...",
+     domains: ["health"], // ids from the `domains` array
+     skills: ["sprechen"], // any of: hoeren, lesen, schreiben, sprechen — for filtering only
+     practiced: "What you did in the session, one sentence.",
+     vocabulary: ["der Termin", "..."],
+     verbs: ["anrufen", "..."],
+     grammar: ["Word order after 'weil'"],
+     mistakes: ["..."],
+     canNowDo: "What Pierre can now do that he couldn't before.",
+     repeatNext: "What the next session should repeat or build on.",
    },
    ```
 
    Don't add `isSample: true` — that flag marks placeholder content only.
 
-3. Update the matching `domains[...].skills[...]` cell (status, teacher,
-   `lastPracticed`) and the top-level `sections[...].coverage` / `.status` if
-   the lesson changed how ready that skill or domain is.
-4. If new mistakes came up, add them to `recurringMistakes`; if an old one
-   didn't reappear in a while, you can leave it or delete it.
-5. Update or remove entries in `plannedSessions` once they've happened, and
-   add the next planned session.
-6. Save, commit, and push — the GitHub Action rebuilds and redeploys the
+3. Update the matching domain in `domains[...]`: `status`, `lastPracticed`,
+   and `nextAction` if this lesson changed how ready that topic is.
+4. If a new mistake came up more than once, add it to `recurringMistakes`.
+5. Remove the planned session that just happened from `plannedSessions`, and
+   add the next one (with `date`, `teacher`, `domain`, `goal`).
+6. If a writing or speaking checklist item changed status, update it in
+   `writingTasks` or `speakingChecklist`.
+7. Save, commit, and push — the GitHub Action rebuilds and redeploys the
    site automatically (see below).
 
-Everything else (dashboard totals, teacher pages, domain pages, the lesson
-log) updates itself from these edits — nothing else needs to change.
+Everything else (dashboard readiness %, teacher briefs, domain pages) is
+computed from these edits — nothing else needs to change.
+
+## How each teacher should use it
+
+Open **Teachers**, read your own one-minute section — brief, what to do
+next (click through to the domain to see what other teachers already
+covered there), what not to repeat, mistakes to correct, and a 60-minute
+session plan. That's the whole workflow; nothing is hidden behind extra
+clicks.
 
 ## Run it locally
 
@@ -142,15 +172,18 @@ git push -u origin main
 
 ## Assumptions made
 
-- "Dénard" (section 9 of the brief) and "Denajdër" (top-level teacher list)
-  refer to the same teacher — the site uses **Denajdër** throughout.
-- The default teacher/skill assignment (Heidi → Sprechen, Patrick → Hören,
-  Denajdër → Lesen/Schreiben) is a starting point, not fixed — change
-  `assignedTeachers` / `assignedTeacher` / `relevantDomains` in
-  `progress.ts` any time the division of labour changes.
-- Sample lesson dates run through 2026-06-30 (marked `isSample: true`);
-  planned sessions run from 2026-07-08 onward. Replace both as real lessons
-  happen.
+- "Dénard" and "Denajdër" refer to the same teacher — the site uses
+  **Denajdër** throughout.
+- The default teacher/domain assignment (Heidi → speaking-heavy domains,
+  Patrick → listening/Swiss German, Denajdër → writing/reading) is a
+  starting point, not fixed — change `teacher` on any domain, or
+  `relatedSkills` on a teacher, any time the division of labour changes.
+- Sample lesson dates run through 2026-06-30; planned sessions run from
+  2026-07-08 onward. Replace both as real lessons happen.
 - Swiss German is tracked as a **passive listening** domain only — Pierre is
   not expected to produce it, per the KDE's Hochdeutsch-only speaking
   requirement.
+- Hören and Lesen no longer have dedicated pages (removed in this redesign
+  to cut duplication) — their status rolls up into the Dashboard's skill
+  summary, and their content lives inside the relevant Domains and the
+  Writing/Speaking pages.

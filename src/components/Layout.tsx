@@ -3,13 +3,11 @@ import { NavLink } from "react-router-dom";
 
 const NAV_LINKS = [
   { to: "/", label: "Dashboard", end: true },
-  { to: "/hoeren", label: "Hören" },
-  { to: "/lesen", label: "Lesen" },
-  { to: "/schreiben", label: "Schreiben" },
-  { to: "/sprechen", label: "Sprechen" },
   { to: "/domains", label: "Domains" },
+  { to: "/writing", label: "Writing" },
+  { to: "/speaking", label: "Speaking" },
   { to: "/teachers", label: "Teachers" },
-  { to: "/log", label: "Lesson log" },
+  { to: "/logs", label: "Lesson logs" },
 ];
 
 export function Layout({ children }: { children: ReactNode }) {

@@ -1,45 +1,48 @@
-import type { CellStatus, StatusColor } from "../data/types";
+import type { Status } from "../data/types";
 
-export const STATUS_COLOR_CLASSES: Record<StatusColor, string> = {
-  red: "bg-status-red-bg text-status-red-fg",
-  orange: "bg-status-orange-bg text-status-orange-fg",
-  yellow: "bg-status-yellow-bg text-status-yellow-fg",
-  green: "bg-status-green-bg text-status-green-fg",
-  blue: "bg-status-blue-bg text-status-blue-fg",
+// One status vocabulary, one color each, used everywhere: domains, writing
+// tasks, speaking checklist items. No separate "color" concept to map.
+
+export const STATUS_BG: Record<Status, string> = {
+  not_covered: "bg-status-grey-bg",
+  started: "bg-status-yellow-bg",
+  needs_review: "bg-status-orange-bg",
+  ready: "bg-status-green-bg",
+  planned: "bg-status-blue-bg",
 };
 
-export const STATUS_COLOR_DOT: Record<StatusColor, string> = {
-  red: "bg-status-red-fg",
-  orange: "bg-status-orange-fg",
-  yellow: "bg-status-yellow-fg",
-  green: "bg-status-green-fg",
-  blue: "bg-status-blue-fg",
+export const STATUS_FG: Record<Status, string> = {
+  not_covered: "text-status-grey-fg",
+  started: "text-status-yellow-fg",
+  needs_review: "text-status-orange-fg",
+  ready: "text-status-green-fg",
+  planned: "text-status-blue-fg",
 };
 
-export const STATUS_COLOR_LABEL: Record<StatusColor, string> = {
-  red: "Not covered",
-  orange: "Partially covered",
-  yellow: "Practiced, unstable",
-  green: "Exam-ready",
-  blue: "Planned next",
+export const STATUS_BORDER: Record<Status, string> = {
+  not_covered: "border-status-grey-fg/30",
+  started: "border-status-yellow-fg/40",
+  needs_review: "border-status-orange-fg/40",
+  ready: "border-status-green-fg/40",
+  planned: "border-status-blue-fg/40",
 };
 
-export const CELL_STATUS_META: Record<
-  CellStatus,
-  { color: StatusColor; label: string }
-> = {
-  not_started: { color: "red", label: "Not started" },
-  planned: { color: "blue", label: "Planned" },
-  practiced_once: { color: "yellow", label: "Practiced once" },
-  needs_review: { color: "orange", label: "Needs review" },
-  improving: { color: "yellow", label: "Improving" },
-  exam_ready: { color: "green", label: "Exam-ready" },
+export const STATUS_DOT: Record<Status, string> = {
+  not_covered: "bg-status-grey-fg",
+  started: "bg-status-yellow-fg",
+  needs_review: "bg-status-orange-fg",
+  ready: "bg-status-green-fg",
+  planned: "bg-status-blue-fg",
 };
 
-export function cellColor(status: CellStatus): StatusColor {
-  return CELL_STATUS_META[status].color;
-}
+export const STATUS_LABEL: Record<Status, string> = {
+  not_covered: "Not covered",
+  started: "Started",
+  needs_review: "Needs review",
+  ready: "Ready",
+  planned: "Planned",
+};
 
-export function cellLabel(status: CellStatus): string {
-  return CELL_STATUS_META[status].label;
+export function statusBadgeClasses(status: Status): string {
+  return `${STATUS_BG[status]} ${STATUS_FG[status]}`;
 }

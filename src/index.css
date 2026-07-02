@@ -11,8 +11,10 @@
   --color-ink-soft: #2f3437;
   --color-muted: #787774;
 
-  --color-status-red-bg: #fdebec;
-  --color-status-red-fg: #9f2f2d;
+  /* Five status colors, used everywhere the same way. Grey reads as
+     "neutral, not started" rather than alarming, which is the point. */
+  --color-status-grey-bg: #f1f0ee;
+  --color-status-grey-fg: #6b6863;
   --color-status-orange-bg: #fbeada;
   --color-status-orange-fg: #a05a1f;
   --color-status-yellow-bg: #fbf3db;
