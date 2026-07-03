@@ -7,6 +7,7 @@ import { Writing } from "./pages/Writing";
 import { Speaking } from "./pages/Speaking";
 import { Teachers } from "./pages/Teachers";
 import { LessonLogs } from "./pages/LessonLogs";
+import { Trainer } from "./pages/Trainer";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/domains/:domainId" element={<DomainDetail />} />
           <Route path="/writing" element={<Writing />} />
           <Route path="/speaking" element={<Speaking />} />
+          <Route path="/trainer" element={<Trainer />} />
           <Route path="/teachers" element={<Teachers />} />
           <Route path="/logs" element={<LessonLogs />} />
         </Routes>

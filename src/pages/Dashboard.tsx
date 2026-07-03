@@ -15,20 +15,75 @@ import {
 import { Card } from "../components/Card";
 import { STATUS_LABEL } from "../lib/status";
 
-const STATUS_ORDER = ["not_covered", "started", "needs_review", "ready"] as const;
+const STATUS_ORDER = ["not_seen", "planned", "seen", "reviewed"] as const;
 
 export function Dashboard() {
   const readiness = overallReadiness();
   const next = nextPlannedSession();
   const counts = domainStatusCounts();
   const watchDomains = domains
-    .filter((d) => d.priority === "high" && d.status !== "ready")
+    .filter((d) => d.priority === "high" && d.status !== "reviewed")
     .slice(0, 3);
   const recentLogs = lessonLogsSorted().slice(0, 3);
+  const latestLog = recentLogs[0];
+  const recentWords = [...new Set(recentLogs.flatMap((log) => log.vocabulary))].slice(0, 8);
   const topPriorities = priorities.slice(0, 3);
+  const nextFocus =
+    domains.find((d) => d.priority === "high" && d.status === "planned") ??
+    domains.find((d) => d.status === "planned") ??
+    domains.find((d) => d.status === "not_seen") ??
+    domains[0];
 
   return (
     <div className="flex flex-col gap-6">
+      <div>
+        <p className="text-xs font-medium tracking-wide text-muted uppercase">
+          Dashboard
+        </p>
+        <h1 className="text-3xl font-semibold tracking-tight text-ink">
+          What is the plan?
+        </h1>
+        <p className="mt-1 max-w-2xl text-sm text-ink-soft">
+          Pierre and any teacher should see the next useful action in under 30 seconds.
+        </p>
+      </div>
+
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.85fr)]">
+        <Card className="bg-status-blue-bg">
+          <p className="mb-2 text-xs font-medium tracking-wide text-status-blue-fg uppercase">
+            Work on this next
+          </p>
+          <h2 className="text-3xl font-semibold tracking-tight text-ink">{nextFocus.label}</h2>
+          <p className="mt-2 text-sm text-ink-soft">{nextFocus.nextAction}</p>
+          <p className="mt-2 text-xs text-muted">
+            Why: {nextFocus.priority === "high" ? "high KDE relevance" : "planned or not seen yet"} ·{" "}
+            {STATUS_LABEL[nextFocus.status]}
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <Link to="/trainer" className="rounded-md bg-ink px-3 py-2 text-sm font-medium text-white">
+              Practice 5 items now
+            </Link>
+            <Link to={`/domains/${nextFocus.id}`} className="rounded-md border border-border bg-surface px-3 py-2 text-sm font-medium text-ink">
+              Open domain
+            </Link>
+          </div>
+        </Card>
+
+        <Card>
+          <p className="mb-2 text-xs font-medium tracking-wide text-muted uppercase">
+            2-minute teacher brief
+          </p>
+          <h2 className="text-xl font-semibold text-ink">Phone / voicemail into callback speaking</h2>
+          <p className="mt-2 text-sm text-ink-soft">
+            Extract caller, reason, time/date, number and action. Then roleplay the callback.
+          </p>
+          <p className="mt-3 text-sm text-ink-soft">
+            <span className="font-medium text-ink">Do not repeat:</span> long curriculum overview.
+            Use self-introduction only as a 90-second warm-up.
+          </p>
+        </Card>
+      </div>
+
       {/* 1. KDE readiness snapshot */}
       <Card>
         <div className="flex flex-wrap items-center justify-between gap-4">
@@ -113,6 +168,29 @@ export function Dashboard() {
         </Card>
       </div>
 
+      <Card>
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="text-sm font-medium tracking-wide text-muted uppercase">
+            Coverage map
+          </h2>
+          <Link to="/domains" className="text-xs font-medium text-ink underline">
+            Update statuses
+          </Link>
+        </div>
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+          {domains.map((domain) => (
+            <Link
+              key={domain.id}
+              to={`/domains/${domain.id}`}
+              className="rounded-lg border border-border bg-canvas p-3 transition-opacity hover:opacity-80"
+            >
+              <p className="text-sm font-medium text-ink">{domain.label}</p>
+              <p className="mt-1 text-xs text-muted">{STATUS_LABEL[domain.status]}</p>
+            </Link>
+          ))}
+        </div>
+      </Card>
+
       {/* 5. Recent lesson logs */}
       <Card>
         <div className="mb-3 flex items-center justify-between">
@@ -133,6 +211,27 @@ export function Dashboard() {
           ))}
         </ul>
       </Card>
+
+      {latestLog && (
+        <Card>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="text-sm font-medium tracking-wide text-muted uppercase">
+              Recently learned
+            </h2>
+            <Link to="/logs" className="text-xs font-medium text-ink underline">
+              Lesson logs
+            </Link>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {recentWords.map((word) => (
+              <span key={word} className="rounded-md bg-canvas px-2 py-1 text-sm text-ink-soft">
+                {word}
+              </span>
+            ))}
+          </div>
+          <p className="mt-3 text-sm text-ink-soft">{latestLog.canNowDo}</p>
+        </Card>
+      )}
 
       {/* 6. Teacher briefs */}
       <Card>
