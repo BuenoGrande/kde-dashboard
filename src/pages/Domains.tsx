@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
 import { domains, plannedSessions, teacherById } from "../data/progress";
-import { StatusCard } from "../components/StatusCard";
-import { STATUS_LABEL } from "../lib/status";
+import { domainCourses, fallbackDomainCourse } from "../data/courseContent";
+import { CompetencyTile } from "../components/CompetencyTile";
+import { Card } from "../components/Card";
+import { STATUS_LABEL, STATUS_ORDER, readinessFromStatuses, statusCounts } from "../lib/status";
 
 const PRIORITY_RANK: Record<string, number> = { high: 0, medium: 1, low: 2 };
 
@@ -9,47 +10,66 @@ export function Domains() {
   const sorted = [...domains].sort(
     (a, b) => PRIORITY_RANK[a.priority] - PRIORITY_RANK[b.priority] || a.label.localeCompare(b.label),
   );
+  const counts = statusCounts(domains);
+  const readiness = readinessFromStatuses(domains);
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <p className="text-xs font-medium tracking-wide text-muted uppercase">
-          Can Pierre handle this topic in German? — one status per domain
-        </p>
-        <h1 className="text-2xl font-semibold text-ink">Domains</h1>
-      </div>
+      <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <p className="text-xs font-semibold uppercase text-muted">Vocabulary domains</p>
+          <h1 className="mt-1 text-3xl font-semibold tracking-tight text-ink">15 topic boxes</h1>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-soft">
+            Vocabulary is the topic layer: words, questions and scenarios by life domain.
+            Exam practice is the format layer for Hören, Lesen, Schreiben and Sprechen.
+          </p>
+        </div>
 
-      <div className="flex flex-col gap-3">
-        {sorted.map((d) => {
-          const planned = plannedSessions.find((p) => p.domain === d.id);
+        <Card className="bg-panel">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase text-muted">Vocabulary readiness</p>
+              <p className="mt-1 font-mono text-4xl font-semibold text-ink">{readiness}%</p>
+            </div>
+            <div className="grid gap-2 text-right text-xs font-semibold uppercase text-muted sm:grid-cols-2 sm:text-left">
+              {STATUS_ORDER.filter((status) => counts[status] > 0).map((status) => (
+                <span key={status} className="rounded-md bg-surface px-2.5 py-1">
+                  {counts[status]} {STATUS_LABEL[status]}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="mt-4 h-2 overflow-hidden rounded-full bg-border">
+            <div className="h-full rounded-full bg-accent" style={{ width: `${readiness}%` }} />
+          </div>
+        </Card>
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {sorted.map((domain, index) => {
+          const planned = plannedSessions.find((session) => session.domain === domain.id);
+          const course = domainCourses[domain.id] ?? fallbackDomainCourse;
+          const teacher = teacherById(domain.teacher);
+
           return (
-            <Link key={d.id} to={`/domains/${d.id}`} className="block">
-              <StatusCard status={d.status} className="transition-opacity hover:opacity-90">
-                <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h2 className="font-semibold text-ink">{d.label}</h2>
-                      {d.priority === "high" && (
-                        <span className="text-xs text-muted">High priority</span>
-                      )}
-                      {planned && (
-                        <span className="rounded-full bg-status-blue-bg px-2 py-0.5 text-xs font-medium text-status-blue-fg">
-                          Planned {planned.date}
-                        </span>
-                      )}
-                    </div>
-                    <p className="mt-1 text-sm text-ink-soft">{d.nextAction}</p>
-                  </div>
-                  <div className="shrink-0 text-right text-xs text-muted">
-                    <p className="font-medium">{STATUS_LABEL[d.status]}</p>
-                    <p>{teacherById(d.teacher)?.name}</p>
-                  </div>
-                </div>
-              </StatusCard>
-            </Link>
+            <CompetencyTile
+              key={domain.id}
+              title={domain.label}
+              status={domain.status}
+              meta={`${domain.priority} priority · ${teacher?.name ?? "Teacher"}`}
+              detail={domain.nextAction}
+              to={`/domains/${domain.id}`}
+              index={index}
+            >
+              <div className="flex flex-wrap gap-2 text-xs font-semibold text-muted">
+                <span className="rounded-md bg-canvas px-2 py-1">{course.vocabulary.length} words</span>
+                <span className="rounded-md bg-canvas px-2 py-1">{course.scenarios.length} scenarios</span>
+                {planned && <span className="rounded-md bg-planned px-2 py-1 text-status-blue-fg">{planned.date}</span>}
+              </div>
+            </CompetencyTile>
           );
         })}
-      </div>
+      </section>
     </div>
   );
 }

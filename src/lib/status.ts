@@ -4,40 +4,81 @@ import type { Status } from "../data/types";
 // tasks, speaking checklist items. No separate "color" concept to map.
 
 export const STATUS_BG: Record<Status, string> = {
-  not_seen: "bg-status-grey-bg",
+  not_covered: "bg-status-grey-bg",
+  started: "bg-status-yellow-bg",
+  needs_review: "bg-status-orange-bg",
+  ready: "bg-status-green-bg",
   planned: "bg-status-blue-bg",
-  seen: "bg-status-green-bg",
-  reviewed: "bg-status-yellow-bg",
 };
 
 export const STATUS_FG: Record<Status, string> = {
-  not_seen: "text-status-grey-fg",
+  not_covered: "text-status-grey-fg",
+  started: "text-status-yellow-fg",
+  needs_review: "text-status-orange-fg",
+  ready: "text-status-green-fg",
   planned: "text-status-blue-fg",
-  seen: "text-status-green-fg",
-  reviewed: "text-status-yellow-fg",
 };
 
 export const STATUS_BORDER: Record<Status, string> = {
-  not_seen: "border-status-grey-fg/30",
+  not_covered: "border-status-grey-fg/30",
+  started: "border-status-yellow-fg/40",
+  needs_review: "border-status-orange-fg/40",
+  ready: "border-status-green-fg/40",
   planned: "border-status-blue-fg/40",
-  seen: "border-status-green-fg/40",
-  reviewed: "border-status-yellow-fg/40",
 };
 
 export const STATUS_DOT: Record<Status, string> = {
-  not_seen: "bg-status-grey-fg",
+  not_covered: "bg-status-grey-fg",
+  started: "bg-status-yellow-fg",
+  needs_review: "bg-status-orange-fg",
+  ready: "bg-status-green-fg",
   planned: "bg-status-blue-fg",
-  seen: "bg-status-green-fg",
-  reviewed: "bg-status-yellow-fg",
 };
 
 export const STATUS_LABEL: Record<Status, string> = {
-  not_seen: "Not seen",
+  not_covered: "Not covered",
+  started: "Started",
+  needs_review: "Needs review",
+  ready: "Ready",
   planned: "Planned",
-  seen: "Seen",
-  reviewed: "Reviewed",
+};
+
+export const STATUS_ORDER: Status[] = [
+  "not_covered",
+  "started",
+  "needs_review",
+  "ready",
+  "planned",
+];
+
+export const STATUS_SCORE: Record<Status, number> = {
+  not_covered: 0,
+  planned: 0.15,
+  started: 0.4,
+  needs_review: 0.7,
+  ready: 1,
 };
 
 export function statusBadgeClasses(status: Status): string {
   return `${STATUS_BG[status]} ${STATUS_FG[status]}`;
+}
+
+export function statusCounts<T extends { status: Status }>(items: T[]) {
+  const counts: Record<Status, number> = {
+    not_covered: 0,
+    started: 0,
+    needs_review: 0,
+    ready: 0,
+    planned: 0,
+  };
+
+  for (const item of items) counts[item.status] += 1;
+  return counts;
+}
+
+export function readinessFromStatuses<T extends { status: Status }>(items: T[]) {
+  if (items.length === 0) return 0;
+  return Math.round(
+    (items.reduce((sum, item) => sum + STATUS_SCORE[item.status], 0) / items.length) * 100,
+  );
 }

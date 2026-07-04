@@ -3,7 +3,7 @@
 
 // One status vocabulary, reused everywhere (domains, writing tasks,
 // speaking checklist items). Fewer concepts to learn, fewer colors on screen.
-export type Status = "not_seen" | "planned" | "seen" | "reviewed";
+export type Status = "not_covered" | "started" | "needs_review" | "ready" | "planned";
 
 export type Priority = "high" | "medium" | "low";
 

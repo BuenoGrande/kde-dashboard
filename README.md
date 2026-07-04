@@ -30,19 +30,33 @@ domain — the real question for most topics is just "can Pierre handle this
 in German, yes or no." Writing and Speaking get their own pages because the
 exam needs concrete task/format competence there, not a general topic score.
 
+## KDE public model facts encoded here
+
+The exam-format page follows the public KDE model material from Kanton Zürich:
+
+- Hören: 4 tasks, 15 minutes.
+- Lesen: 4 tasks, 35 minutes.
+- Schreiben: 1 task, 25 minutes, total ca. 40 Wörter.
+- The writing model is an invitation task; the other writing cards are A2
+  practice patterns, not claimed as confirmed KDE task types.
+- The oral-prep cards are training scaffolds for self-introduction,
+  scenario/picture-card speaking and follow-up questions.
+
+Sources: [Kanton Zürich KDE model test](https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/kde/kde_modell_test.pdf)
+and [KDE test-provider regulation](https://www.zh.ch/content/dam/zhweb/bilder-dokumente/themen/migration-integration/einbuergerung/kde/reglement_gemeinden_testanbieter_kde_okt_2021.pdf).
+
 ## Pages
 
-- **Dashboard** — readiness %, next session, domain-status counts + domains
-  needing attention, top 3 priorities, recent lesson logs, one-line teacher
-  briefs. Designed to be read in under 30 seconds.
-- **Domains** — all 12 life domains as status-colored rows; click through for
-  status, priority, teacher, last practiced date, and recent lessons.
-- **Writing** — the A2 writing-task checklist (invitation, reply, appointment
-  change, information request, apology, neighbour message), each with a
-  status, common mistakes, next drill, and a model answer where available.
-- **Speaking** — the B1 checklist (self-introduction, picture-card, follow-up
-  questions), the picture-card formula structure, repair phrases, priority
-  speaking domains, and recent speaking lessons.
+- **Dashboard** — one overview for vocabulary domains plus Hören, Lesen,
+  Schreiben and Sprechen practice: validated, needs review, started, not
+  covered, next session, high-priority drills, recent evidence and transcript
+  agent outputs.
+- **Vocabulary** — 15 life domains as a 2D grid of boxes; each click opens a
+  mini-course with vocabulary, likely questions, scenarios, professor/student
+  feedback, teacher, next drill and recent lessons.
+- **Exam practice** — one page for Writing, Speaking, Listening and Reading.
+  Each track has clickable competency boxes and a practice sheet for the
+  selected task. Old `/writing` and `/speaking` links redirect here.
 - **Teachers** — Heidi, Patrick and Denajdër's one-minute briefs, all visible
   on one page with no clicks required: what to do next (linked to the
   relevant domain), what not to repeat, mistakes to correct, a suggested
@@ -61,10 +75,11 @@ src/data/progress.ts
 
 It exports plain arrays: `skillLevels`, `teachers`, `domains`, `writingTasks`,
 `speakingChecklist`, `lessonLogs`, `plannedSessions`, `priorities`,
-`recurringMistakes`. Every page reads from these — there's no separate
-content to update per page. `src/data/types.ts` documents the shape of each
-object; `src/data/reference.ts` holds fixed exam material (speaking
-formulas, writing structure) that rarely changes.
+`recurringMistakes`. `src/data/courseContent.ts` adds the pedagogical layer:
+domain vocabulary, questions, scenarios, writing/speaking/listening/reading mini
+courses, and the professor/student feedback loops. `src/data/types.ts`
+documents the core shapes; `src/data/reference.ts` holds fixed exam material
+(speaking formulas, writing structure) that rarely changes.
 
 A teacher's "do this next" on the Teachers page and Dashboard is **derived**
 from `plannedSessions`, not stored separately — add/update a planned session
@@ -100,12 +115,21 @@ once and both places update automatically.
 5. Remove the planned session that just happened from `plannedSessions`, and
    add the next one (with `date`, `teacher`, `domain`, `goal`).
 6. If a writing or speaking checklist item changed status, update it in
-   `writingTasks` or `speakingChecklist`.
+   `writingTasks` or `speakingChecklist`. If reading/listening changed, update
+   the matching listening or reading entry in `examFormatTasks` inside
+   `src/data/courseContent.ts`.
 7. Save, commit, and push — the GitHub Action rebuilds and redeploys the
    site automatically (see below).
 
 Everything else (dashboard readiness %, teacher briefs, domain pages) is
 computed from these edits — nothing else needs to change.
+
+## Transcript reviewer agent
+
+Use `agents/kde-transcript-reviewer.md` after every lesson. Paste the lesson
+transcript, chat and documents into that prompt. It returns evidence, validated
+competencies, errors, vocabulary, a draft `lessonLogs` entry and suggested
+status updates.
 
 ## How each teacher should use it
 
@@ -180,10 +204,9 @@ git push -u origin main
   `relatedSkills` on a teacher, any time the division of labour changes.
 - Sample lesson dates run through 2026-06-30; planned sessions run from
   2026-07-08 onward. Replace both as real lessons happen.
-- Swiss German is tracked as a **passive listening** domain only — Pierre is
-  not expected to produce it, per the KDE's Hochdeutsch-only speaking
-  requirement.
-- Hören and Lesen no longer have dedicated pages (removed in this redesign
-  to cut duplication) — their status rolls up into the Dashboard's skill
-  summary, and their content lives inside the relevant Domains and the
-  Writing/Speaking pages.
+- Swiss German is tracked as a **passive listening strategy for Pierre** in
+  this dashboard. It is not presented as a general KDE rule about what every
+  candidate must or must not produce.
+- Hören and Lesen no longer have dedicated pages — their status rolls up into
+  the Dashboard's skill summary, and their course content lives under
+  **Exam practice → Listening / Reading** plus the relevant vocabulary domains.

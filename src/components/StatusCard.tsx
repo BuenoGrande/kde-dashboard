@@ -16,7 +16,7 @@ export function StatusCard({
 }) {
   return (
     <div
-      className={`rounded-xl border-y border-r border-border border-l-4 ${STATUS_BORDER[status]} ${STATUS_BG[status]} p-5 ${className}`}
+      className={`rounded-lg border-y border-r border-border border-l-4 ${STATUS_BORDER[status]} ${STATUS_BG[status]} p-5 shadow-[0_14px_36px_-30px_rgba(34,41,37,0.5)] ${className}`}
     >
       {children}
     </div>

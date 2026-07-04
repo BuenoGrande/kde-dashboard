@@ -3,6 +3,7 @@ import { Layout } from "./components/Layout";
 import { Dashboard } from "./pages/Dashboard";
 import { Domains } from "./pages/Domains";
 import { DomainDetail } from "./pages/DomainDetail";
+import { ExamStructure } from "./pages/ExamStructure";
 import { Writing } from "./pages/Writing";
 import { Speaking } from "./pages/Speaking";
 import { Teachers } from "./pages/Teachers";
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/domains" element={<Domains />} />
           <Route path="/domains/:domainId" element={<DomainDetail />} />
+          <Route path="/exam" element={<ExamStructure />} />
           <Route path="/writing" element={<Writing />} />
           <Route path="/speaking" element={<Speaking />} />
           <Route path="/trainer" element={<Trainer />} />

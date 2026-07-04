@@ -9,7 +9,7 @@ export function Card({
 }) {
   return (
     <div
-      className={`rounded-xl border border-border bg-surface p-6 ${className}`}
+      className={`rounded-lg border border-border bg-surface p-5 shadow-[0_18px_50px_-42px_rgba(34,41,37,0.45)] ${className}`}
     >
       {children}
     </div>
@@ -33,7 +33,7 @@ export function CardHeading({
             {eyebrow}
           </p>
         )}
-        <h2 className="text-lg font-semibold text-ink">{title}</h2>
+        <h2 className="text-lg font-semibold leading-tight tracking-tight text-ink">{title}</h2>
       </div>
       {right}
     </div>

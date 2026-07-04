@@ -23,6 +23,7 @@ import type {
   TopPriority,
   WritingTask,
 } from "./types";
+import { readinessFromStatuses, statusCounts } from "../lib/status";
 
 // ---------------------------------------------------------------------------
 // THE FOUR KDE SKILLS — one status word each. Detail lives in Domains,
@@ -30,10 +31,10 @@ import type {
 // ---------------------------------------------------------------------------
 
 export const skillLevels: SkillLevel[] = [
-  { id: "hoeren", label: "Hören", level: "B1", status: "planned" },
-  { id: "lesen", label: "Lesen", level: "A2", status: "seen" },
-  { id: "schreiben", label: "Schreiben", level: "A2", status: "seen" },
-  { id: "sprechen", label: "Sprechen", level: "B1", status: "seen" },
+  { id: "hoeren", label: "Hören", level: "B1", status: "needs_review" },
+  { id: "lesen", label: "Lesen", level: "A2", status: "started" },
+  { id: "schreiben", label: "Schreiben", level: "A2", status: "started" },
+  { id: "sprechen", label: "Sprechen", level: "B1", status: "started" },
 ];
 
 // ---------------------------------------------------------------------------
@@ -94,7 +95,7 @@ export const domains: Domain[] = [
   {
     id: "personal-profile",
     label: "Personal profile",
-    status: "seen",
+    status: "started",
     priority: "medium",
     teacher: "heidi",
     lastPracticed: "2026-06-30",
@@ -104,7 +105,7 @@ export const domains: Domain[] = [
   {
     id: "housing",
     label: "Housing / neighbours",
-    status: "seen",
+    status: "started",
     priority: "medium",
     teacher: "denajder",
     lastPracticed: "2026-06-05",
@@ -114,7 +115,7 @@ export const domains: Domain[] = [
   {
     id: "work-study",
     label: "Work / study",
-    status: "seen",
+    status: "started",
     priority: "medium",
     teacher: "heidi",
     lastPracticed: "2026-06-19",
@@ -124,7 +125,7 @@ export const domains: Domain[] = [
   {
     id: "health",
     label: "Health / doctor / pharmacy",
-    status: "planned",
+    status: "needs_review",
     priority: "high",
     teacher: "heidi",
     lastPracticed: "2026-06-28",
@@ -134,7 +135,7 @@ export const domains: Domain[] = [
   {
     id: "gemeinde",
     label: "Gemeinde / administration",
-    status: "seen",
+    status: "started",
     priority: "high",
     teacher: "denajder",
     lastPracticed: "2026-06-05",
@@ -144,7 +145,7 @@ export const domains: Domain[] = [
   {
     id: "school-family",
     label: "School / family / children",
-    status: "not_seen",
+    status: "not_covered",
     priority: "low",
     teacher: "denajder",
     lastPracticed: null,
@@ -153,7 +154,7 @@ export const domains: Domain[] = [
   {
     id: "shopping-services",
     label: "Shopping / services",
-    status: "seen",
+    status: "started",
     priority: "low",
     teacher: "denajder",
     lastPracticed: "2026-06-12",
@@ -163,7 +164,7 @@ export const domains: Domain[] = [
   {
     id: "transport",
     label: "Transport / directions",
-    status: "seen",
+    status: "started",
     priority: "medium",
     teacher: "patrick",
     lastPracticed: "2026-06-15",
@@ -173,7 +174,7 @@ export const domains: Domain[] = [
   {
     id: "leisure",
     label: "Leisure / events / clubs",
-    status: "seen",
+    status: "started",
     priority: "low",
     teacher: "patrick",
     lastPracticed: "2026-06-30",
@@ -183,7 +184,7 @@ export const domains: Domain[] = [
   {
     id: "waste",
     label: "Waste / recycling / environment",
-    status: "not_seen",
+    status: "not_covered",
     priority: "low",
     teacher: "denajder",
     lastPracticed: null,
@@ -192,7 +193,7 @@ export const domains: Domain[] = [
   {
     id: "civic-admin",
     label: "Civic-admin reading / voting logistics",
-    status: "not_seen",
+    status: "not_covered",
     priority: "medium",
     teacher: "denajder",
     lastPracticed: null,
@@ -202,12 +203,42 @@ export const domains: Domain[] = [
   {
     id: "swiss-german",
     label: "Swiss German listening survival",
-    status: "planned",
+    status: "needs_review",
     priority: "high",
     teacher: "patrick",
     lastPracticed: "2026-06-28",
     nextAction: "Weekly voicemail drill — extract key facts only, not full comprehension.",
     note: "Understands isolated words only; numbers and times are hardest.",
+  },
+  {
+    id: "money-insurance",
+    label: "Money / insurance / bills",
+    status: "not_covered",
+    priority: "medium",
+    teacher: "denajder",
+    lastPracticed: null,
+    nextAction: "Read one invoice or insurance letter and extract amount, deadline, sender.",
+    note: "Important everyday reading domain; no stable vocabulary yet.",
+  },
+  {
+    id: "emergencies",
+    label: "Emergencies / safety",
+    status: "not_covered",
+    priority: "medium",
+    teacher: "heidi",
+    lastPracticed: null,
+    nextAction: "Roleplay asking for help, describing a simple accident, and giving an address.",
+    note: "High usefulness; needs controlled speaking formulas first.",
+  },
+  {
+    id: "digital-services",
+    label: "Digital services / appointments",
+    status: "not_covered",
+    priority: "low",
+    teacher: "denajder",
+    lastPracticed: null,
+    nextAction: "Practice booking or changing an online appointment using simple written German.",
+    note: "Good bridge between administration vocabulary and writing tasks.",
   },
 ];
 
@@ -220,44 +251,44 @@ export const writingTasks: WritingTask[] = [
   {
     id: "invitation",
     label: "Write an invitation",
-    status: "seen",
+    status: "started",
     modelAnswer:
-      "Zürich, 3. Juli 2026\n\nLiebe Kolleginnen und Kollegen\n\nIch arbeite jetzt seit zehn Jahren in unserer Firma und möchte das gerne feiern. Deshalb lade ich euch herzlich zu einem Apéro ein.\n\nDatum: Freitag, 17. Juli 2026\nZeit: ab 17 Uhr\nOrt: Pausenraum, 2. Stock\n\nBitte meldet euch bis zum 10. Juli bei mir an, damit ich genug Getränke und Snacks bestellen kann.\n\nIch freue mich auf einen schönen Abend mit euch!\n\nFreundliche Grüsse\nPierre",
-    mistakes: ["Text too short (28 words — needs 40–80)", "Forgot to say where to register"],
-    nextDrill: "Rewrite to 60–70 words, keep the registration request.",
+      "Zürich, 3. Juli 2026\n\nLiebe Kolleginnen und Kollegen\n\nSeit zehn Jahren arbeite ich in unserer Firma. Das möchte ich mit einem Apéro feiern. Er ist am Freitag, 17. Juli, ab 17 Uhr im Pausenraum. Bitte meldet euch bis 10. Juli bei mir an.\n\nFreundliche Grüsse\nPierre",
+    mistakes: ["Text too short for the prompt (target: ca. 40 Wörter)", "Forgot to say where to register"],
+    nextDrill: "Rewrite to about 40 words, keep the registration request.",
   },
   {
     id: "reply-to-invitation",
     label: "Reply to an invitation",
-    status: "not_seen",
+    status: "not_covered",
     mistakes: [],
     nextDrill: "First attempt: accept an invitation and ask one question about it.",
   },
   {
     id: "appointment-change",
     label: "Cancel or move an appointment",
-    status: "seen",
+    status: "started",
     mistakes: ["Sometimes omits the closing formula"],
-    nextDrill: "Write a full version from scratch, then check word count (40–80).",
+    nextDrill: "Write a full version from scratch, then check the ca. 40-word target.",
   },
   {
     id: "information-request",
     label: "Request information",
-    status: "not_seen",
+    status: "not_covered",
     mistakes: [],
     nextDrill: "First attempt: ask the Gemeinde for a form or an opening-hours detail.",
   },
   {
     id: "apology-explanation",
     label: "Apologise / explain a problem",
-    status: "not_seen",
+    status: "not_covered",
     mistakes: [],
     nextDrill: "First attempt: explain why a delivery/appointment needs to change.",
   },
   {
     id: "neighbour-message",
     label: "Write a neighbour or housing message",
-    status: "planned",
+    status: "needs_review",
     mistakes: ["Word order after 'weil' when giving a reason"],
     nextDrill: "Rewrite the noise-complaint reply, checking 'weil' word order.",
   },
@@ -272,19 +303,19 @@ export const speakingChecklist: SpeakingItem[] = [
   {
     id: "self-introduction",
     label: "2-minute self-introduction",
-    status: "seen",
+    status: "started",
     note: "Fluent to ~90 seconds; needs a closing line to reach 2 minutes.",
   },
   {
     id: "picture-card",
     label: "Picture-card structure",
-    status: "seen",
+    status: "started",
     note: "First attempt done (leisure topic); ran short, giving an opinion was the weak step.",
   },
   {
     id: "follow-up-questions",
     label: "Follow-up question readiness",
-    status: "not_seen",
+    status: "not_covered",
     note: "Not drilled as a standalone exercise yet — hesitates when examiners improvise.",
   },
 ];
@@ -335,9 +366,9 @@ export const lessonLogs: LessonLog[] = [
     vocabulary: ["der Apéro", "die Kollegen", "sich anmelden"],
     verbs: ["einladen", "sich anmelden", "stattfinden"],
     grammar: ["Word order: time – manner – place"],
-    mistakes: ["Text too short (28 words, needs 40–80)", "Forgot to say where to register"],
+    mistakes: ["Text too short for the prompt (target: ca. 40 Wörter)", "Forgot to say where to register"],
     canNowDo: "Write a basic invitation with a date and a place.",
-    repeatNext: "Rewrite to 60–70 words including the registration request.",
+    repeatNext: "Rewrite to about 40 words including the registration request.",
     isSample: true,
   },
   {
@@ -520,17 +551,7 @@ export const nextPlannedSession = () => plannedSessionsSorted()[0];
 export const nextSessionForTeacher = (teacherId: string) =>
   plannedSessionsSorted().find((p) => p.teacher === teacherId);
 
-const STATUS_SCORE: Record<string, number> = {
-  not_seen: 0,
-  planned: 0.25,
-  seen: 0.68,
-  reviewed: 1,
-};
-
-export const overallReadiness = () =>
-  Math.round(
-    (domains.reduce((sum, d) => sum + STATUS_SCORE[d.status], 0) / domains.length) * 100,
-  );
+export const overallReadiness = () => readinessFromStatuses(domains);
 
 export const readinessLabel = (pct: number) => {
   if (pct >= 76) return "Exam-ready";
@@ -540,7 +561,11 @@ export const readinessLabel = (pct: number) => {
 };
 
 export const domainStatusCounts = () => {
-  const counts: Record<string, number> = { not_seen: 0, planned: 0, seen: 0, reviewed: 0 };
-  for (const d of domains) counts[d.status] = (counts[d.status] ?? 0) + 1;
-  return counts;
+  const counts = statusCounts(domains);
+  return {
+    not_covered: counts.not_covered,
+    started: counts.started,
+    needs_review: counts.needs_review,
+    ready: counts.ready,
+  };
 };
