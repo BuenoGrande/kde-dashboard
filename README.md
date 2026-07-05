@@ -8,9 +8,9 @@ It answers six questions, nothing more: Is Pierre ready? What's covered?
 What's weak? What should the next teacher do? What happened recently? What
 vocabulary/verbs/grammar/mistakes came out of each lesson?
 
-**All content shipped in this repo is sample/placeholder data** so the site
-is usable on day one. Replace it gradually with real session notes — see
-below.
+The checked-in lesson history now contains real transcript-derived session
+notes only. Future lessons should be appended with the same evidence-first
+style — see below.
 
 ## Design principle: one status, everywhere
 
@@ -92,7 +92,7 @@ once and both places update automatically.
 
    ```ts
    {
-     id: "l9", // next number in sequence
+     id: "l17", // next number in sequence
      date: "2026-07-10",
      teacher: "heidi", // "heidi" | "patrick" | "denajder"
      domains: ["health"], // ids from the `domains` array
@@ -106,8 +106,6 @@ once and both places update automatically.
      repeatNext: "What the next session should repeat or build on.",
    },
    ```
-
-   Don't add `isSample: true` — that flag marks placeholder content only.
 
 3. Update the matching domain in `domains[...]`: `status`, `lastPracticed`,
    and `nextAction` if this lesson changed how ready that topic is.
@@ -202,8 +200,9 @@ git push -u origin main
   Patrick → listening/Swiss German, Denajdër → writing/reading) is a
   starting point, not fixed — change `teacher` on any domain, or
   `relatedSkills` on a teacher, any time the division of labour changes.
-- Sample lesson dates run through 2026-06-30; planned sessions run from
-  2026-07-08 onward. Replace both as real lessons happen.
+- Lesson logs should only contain real transcript-derived sessions. Planned
+  sessions run from 2026-07-08 onward and should be replaced as real lessons
+  happen.
 - Swiss German is tracked as a **passive listening strategy for Pierre** in
   this dashboard. It is not presented as a general KDE rule about what every
   candidate must or must not produce.

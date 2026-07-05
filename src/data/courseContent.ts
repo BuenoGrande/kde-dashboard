@@ -65,12 +65,12 @@ export const fallbackDomainCourse: DomainCourse = {
 export const domainCourses: Record<string, DomainCourse> = {
   "personal-profile": {
     vocabulary: [
-      { de: "der Wohnort", fr: "le lieu de residence", note: "Ich wohne in ..." },
-      { de: "die Herkunft", fr: "l'origine" },
-      { de: "der Beruf", fr: "la profession" },
+      { de: "die Staatsbürgerschaft", fr: "la nationalité / citoyenneté" },
+      { de: "die Prüfung", fr: "l'examen" },
+      { de: "in zwei Wochen", fr: "dans deux semaines" },
       { de: "die Freizeit", fr: "le temps libre" },
-      { de: "sich vorstellen", fr: "se presenter" },
-      { de: "verheiratet / ledig", fr: "marie / celibataire" },
+      { de: "Ich möchte Schweizer werden.", fr: "Je veux devenir Suisse.", note: "Patrick correction" },
+      { de: "die eigene Erfahrung", fr: "sa propre expérience" },
     ],
     keyQuestions: [
       "Können Sie sich bitte kurz vorstellen?",
@@ -106,12 +106,12 @@ export const domainCourses: Record<string, DomainCourse> = {
   },
   housing: {
     vocabulary: [
-      { de: "die Wohnung", fr: "l'appartement" },
-      { de: "der Nachbar / die Nachbarin", fr: "le voisin / la voisine" },
-      { de: "die Miete", fr: "le loyer" },
-      { de: "die Hausordnung", fr: "le reglement d'immeuble" },
-      { de: "der Laerm", fr: "le bruit" },
-      { de: "reparieren", fr: "reparer" },
+      { de: "der Wohnraum", fr: "le logement / espace habitable" },
+      { de: "die Wohngemeinschaft", fr: "la colocation" },
+      { de: "der Nachbar", fr: "le voisin" },
+      { de: "respektvoll", fr: "respectueux" },
+      { de: "leiser machen", fr: "baisser le volume" },
+      { de: "die Erlaubnis", fr: "l'autorisation" },
     ],
     keyQuestions: [
       "Wie wohnen Sie in der Schweiz?",
@@ -133,9 +133,9 @@ export const domainCourses: Record<string, DomainCourse> = {
     miniCourse: {
       goal: "Speak and write politely about common housing problems.",
       steps: [
-        "Learn apartment, neighbour, repair and rule vocabulary.",
+        "Learn housing, neighbour, noise and rubbish vocabulary.",
         "Practise a complaint reply with Entschuldigung and könnten.",
-        "Read one Hausordnung paragraph and extract the rule.",
+        "Write one short neighbour message about noise or rubbish.",
       ],
       success: [
         "Pierre can describe a problem without sounding aggressive.",
@@ -147,12 +147,12 @@ export const domainCourses: Record<string, DomainCourse> = {
   },
   "work-study": {
     vocabulary: [
-      { de: "der Arbeitgeber", fr: "l'employeur" },
-      { de: "die Arbeitszeit", fr: "l'horaire de travail" },
-      { de: "die Aufgabe", fr: "la tache" },
-      { de: "die Weiterbildung", fr: "la formation continue" },
-      { de: "Teilzeit / Vollzeit", fr: "temps partiel / plein temps" },
-      { de: "zusammenarbeiten", fr: "collaborer" },
+      { de: "die Forschung", fr: "la recherche" },
+      { de: "der Wissenschaftler", fr: "le scientifique" },
+      { de: "die Vorbereitung", fr: "la préparation" },
+      { de: "der Bildschirm", fr: "l'écran" },
+      { de: "die E-Mail", fr: "l'e-mail" },
+      { de: "geeignet", fr: "adapté / approprié" },
     ],
     keyQuestions: [
       "Was arbeiten Sie?",
@@ -189,11 +189,11 @@ export const domainCourses: Record<string, DomainCourse> = {
   health: {
     vocabulary: [
       { de: "der Termin", fr: "le rendez-vous" },
-      { de: "die Beschwerden", fr: "les symptomes" },
-      { de: "die Apotheke", fr: "la pharmacie" },
-      { de: "das Rezept", fr: "l'ordonnance" },
-      { de: "der Notfalldienst", fr: "le service d'urgence" },
-      { de: "verschieben", fr: "deplacer" },
+      { de: "Bauchschmerze", fr: "maux de ventre", note: "Swiss German lesson form" },
+      { de: "min Chopf", fr: "ma tête", note: "Swiss German lesson form" },
+      { de: "tuet weh", fr: "fait mal", note: "Swiss German lesson form" },
+      { de: "die Rückmeldung", fr: "le retour / la réponse" },
+      { de: "untersuchen lassen", fr: "faire examiner" },
     ],
     keyQuestions: [
       "Welche Beschwerden haben Sie?",
@@ -229,12 +229,12 @@ export const domainCourses: Record<string, DomainCourse> = {
   },
   gemeinde: {
     vocabulary: [
-      { de: "die Gemeinde", fr: "la commune" },
-      { de: "der Schalter", fr: "le guichet" },
+      { de: "die Staatsbürgerschaft", fr: "la nationalité / citoyenneté" },
+      { de: "die Prüfung", fr: "l'examen" },
       { de: "das Formular", fr: "le formulaire" },
       { de: "die Frist", fr: "le delai" },
-      { de: "der Ausweis", fr: "la piece d'identite" },
-      { de: "beantragen", fr: "demander officiellement" },
+      { de: "die Anzeige", fr: "l'annonce" },
+      { de: "Tag der offenen Tür", fr: "journée portes ouvertes" },
     ],
     keyQuestions: [
       "Was brauchen Sie von der Gemeinde?",
@@ -270,53 +270,53 @@ export const domainCourses: Record<string, DomainCourse> = {
   },
   "school-family": {
     vocabulary: [
-      { de: "die Schule", fr: "l'ecole" },
-      { de: "der Elternabend", fr: "la reunion des parents" },
-      { de: "die Betreuung", fr: "la garde / prise en charge" },
-      { de: "die Ferien", fr: "les vacances" },
-      { de: "die Lehrperson", fr: "l'enseignant" },
-      { de: "abmelden", fr: "annoncer une absence" },
+      { de: "wütend", fr: "fâché / en colère" },
+      { de: "dickköpfig", fr: "têtu" },
+      { de: "schüchtern", fr: "timide" },
+      { de: "die Eigenschaft", fr: "la qualité / caractéristique" },
+      { de: "ehrlich", fr: "honnête" },
+      { de: "selbstbewusst", fr: "sûr de soi" },
     ],
     keyQuestions: [
-      "Was macht man bei einem Elternabend?",
-      "Wie meldet man ein Kind krank?",
-      "Welche Informationen stehen in einem Schulbrief?",
+      "Wie ist Ihr Vater / Ihre Mutter / Ihr Bruder?",
+      "Welche Eigenschaften sind Ihnen bei Freunden wichtig?",
+      "Waren Sie als Kind anders als heute?",
     ],
     scenarios: [
       {
-        title: "School absence",
-        setup: "A child is sick and cannot go to school.",
-        task: "Write or say a short absence message with reason and date.",
+        title: "Family personality",
+        setup: "The examiner asks Pierre to compare himself with someone in his family.",
+        task: "Answer in 3-4 simple sentences using wie, mit and one adjective.",
       },
       {
-        title: "Parent evening",
-        setup: "Pierre receives a note about an Elternabend.",
-        task: "Find date, room, start time and whether registration is needed.",
+        title: "Friendship qualities",
+        setup: "Pierre explains what kind of people he likes or avoids.",
+        task: "Use one relative clause, e.g. Leute, die ehrlich sind.",
       },
     ],
     miniCourse: {
-      goal: "Understand simple school communication and respond politely.",
+      goal: "Answer personality and family questions without switching language.",
       steps: [
-        "Learn absence, meeting and schedule vocabulary.",
-        "Practise one short written excuse.",
-        "Read a Schulbrief and extract the action required.",
+        "Memorise 6 personality adjectives with one family example each.",
+        "Practise als for childhood: Als ich ein Kind war...",
+        "Build two relative clauses with die.",
       ],
       success: [
-        "Pierre can say who is absent and why.",
-        "Pierre can identify whether the letter requires a response.",
+        "Pierre can describe a family member with adjective + reason.",
+        "Pierre can use als for a past childhood sentence.",
       ],
     },
-    teacherAgent: "Keep this practical; one school note is better than a broad family discussion.",
-    studentAgent: "I need model sentences because school messages must be short and correct.",
+    teacherAgent: "Keep it German-only and reuse the real personality prompts from the July 3 Denajder lesson.",
+    studentAgent: "I need model answers because personality questions become messy when I improvise.",
   },
   "shopping-services": {
     vocabulary: [
-      { de: "der Preis", fr: "le prix" },
-      { de: "die Quittung", fr: "le recu" },
-      { de: "das Angebot", fr: "l'offre" },
-      { de: "die Öffnungszeiten", fr: "les horaires d'ouverture" },
-      { de: "umtauschen", fr: "echanger" },
-      { de: "reklamieren", fr: "reclamer" },
+      { de: "der Kellner", fr: "le serveur" },
+      { de: "der Apfelstrudel", fr: "le strudel aux pommes" },
+      { de: "die Schlagsahne", fr: "la crème fouettée" },
+      { de: "der Fernseher", fr: "la télévision" },
+      { de: "der Vorschlag", fr: "la proposition" },
+      { de: "liefern", fr: "livrer" },
     ],
     keyQuestions: [
       "Wo kaufen Sie normalerweise ein?",
@@ -352,12 +352,12 @@ export const domainCourses: Record<string, DomainCourse> = {
   },
   transport: {
     vocabulary: [
-      { de: "das Gleis", fr: "la voie" },
-      { de: "die Verspaetung", fr: "le retard" },
-      { de: "der Anschluss", fr: "la correspondance" },
-      { de: "die Haltestelle", fr: "l'arret" },
-      { de: "umsteigen", fr: "changer de transport" },
-      { de: "abfahren / ankommen", fr: "partir / arriver" },
+      { de: "der Bahnhof", fr: "la gare" },
+      { de: "der Zug", fr: "le train" },
+      { de: "die Verspätung", fr: "le retard" },
+      { de: "warten auf", fr: "attendre", note: "warten auf + Akkusativ" },
+      { de: "nehmen", fr: "prendre" },
+      { de: "auf den Zug", fr: "le train", note: "accusative chunk" },
     ],
     keyQuestions: [
       "Wie kommen Sie zur Arbeit?",
@@ -394,11 +394,11 @@ export const domainCourses: Record<string, DomainCourse> = {
   leisure: {
     vocabulary: [
       { de: "der Verein", fr: "l'association / club" },
-      { de: "die Veranstaltung", fr: "l'evenement" },
-      { de: "das Sommerfest", fr: "la fete d'ete" },
-      { de: "die Teilnahme", fr: "la participation" },
-      { de: "sich anmelden", fr: "s'inscrire" },
-      { de: "mitmachen", fr: "participer" },
+      { de: "das Lied", fr: "la chanson" },
+      { de: "die Träne", fr: "la larme" },
+      { de: "der Alltag", fr: "le quotidien" },
+      { de: "die Insel", fr: "l'île" },
+      { de: "die Traumferien", fr: "les vacances de rêve" },
     ],
     keyQuestions: [
       "Was machen Sie gern in der Freizeit?",
@@ -429,17 +429,17 @@ export const domainCourses: Record<string, DomainCourse> = {
         "Pierre can connect the topic to daily life in Switzerland.",
       ],
     },
-    teacherAgent: "Force the opinion step; this is where the first simulation ran short.",
+    teacherAgent: "Force the opinion step; recent speaking still needed support for longer, cleaner answers.",
     studentAgent: "I can describe hobbies, but the opinion sentence needs to become automatic.",
   },
   waste: {
     vocabulary: [
-      { de: "der Abfall", fr: "les dechets" },
-      { de: "die Entsorgung", fr: "l'elimination des dechets" },
-      { de: "die Sammelstelle", fr: "le point de collecte" },
-      { de: "der Kehrichtsack", fr: "le sac poubelle officiel" },
-      { de: "recyceln", fr: "recycler" },
-      { de: "trennen", fr: "trier" },
+      { de: "der Müll", fr: "les déchets" },
+      { de: "wegwerfen", fr: "jeter" },
+      { de: "der Nachbar", fr: "le voisin" },
+      { de: "laut", fr: "fort / bruyant" },
+      { de: "leise", fr: "doucement / silencieux" },
+      { de: "die Polizei", fr: "la police" },
     ],
     keyQuestions: [
       "Wie trennt man Abfall in Ihrer Gemeinde?",
@@ -516,12 +516,12 @@ export const domainCourses: Record<string, DomainCourse> = {
   },
   "swiss-german": {
     vocabulary: [
-      { de: "de Termin", fr: "le rendez-vous", note: "Swiss German listening form" },
-      { de: "zrugruefe", fr: "rappeler", note: "zurückrufen" },
-      { de: "verschiebe", fr: "deplacer" },
-      { de: "zwänzg / drüssg", fr: "vingt / trente" },
-      { de: "am Namittag", fr: "l'apres-midi" },
-      { de: "s'Gleis", fr: "la voie" },
+      { de: "Hoi", fr: "salut", note: "Swiss German greeting" },
+      { de: "Grüezi", fr: "bonjour", note: "Swiss German greeting" },
+      { de: "Ich bin de Pierre", fr: "Je suis Pierre", note: "Swiss German intro chunk" },
+      { de: "Ziit", fr: "temps / créneau", note: "Swiss German listening form" },
+      { de: "Numme", fr: "numéro", note: "Swiss German listening form" },
+      { de: "de Arzt", fr: "le médecin", note: "Swiss German listening form" },
     ],
     keyQuestions: [
       "Welche Zahl oder Uhrzeit haben Sie gehoert?",
@@ -639,12 +639,12 @@ export const domainCourses: Record<string, DomainCourse> = {
   },
   "digital-services": {
     vocabulary: [
-      { de: "der Zugang", fr: "l'acces" },
-      { de: "das Passwort", fr: "le mot de passe" },
-      { de: "die Bestaetigung", fr: "la confirmation" },
-      { de: "der Online-Termin", fr: "le rendez-vous en ligne" },
-      { de: "hochladen", fr: "televerser" },
-      { de: "buchen", fr: "reserver" },
+      { de: "der Termin", fr: "le rendez-vous" },
+      { de: "die Rückmeldung", fr: "la réponse / le retour" },
+      { de: "die baldige Rückmeldung", fr: "la réponse rapide" },
+      { de: "die Ausländerbehörde", fr: "l'autorité des étrangers" },
+      { de: "verschieben", fr: "déplacer / reporter" },
+      { de: "vereinbaren", fr: "convenir / fixer" },
     ],
     keyQuestions: [
       "Wie bucht man einen Termin online?",

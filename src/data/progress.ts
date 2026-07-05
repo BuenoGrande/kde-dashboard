@@ -5,10 +5,6 @@
 // page on the site (dashboard, domains, writing, speaking, teachers, lesson
 // logs) reads from the arrays below.
 //
-// ALL CONTENT IN THIS FILE IS CURRENTLY SAMPLE / PLACEHOLDER DATA.
-// Replace it gradually with real session notes. Search for `isSample: true`
-// to find lesson entries that still need replacing.
-//
 // See README.md → "Update the site after a lesson" for a step-by-step guide.
 // ============================================================================
 
@@ -50,8 +46,8 @@ export const teachers: Teacher[] = [
     brief:
       "Heidi runs the oral-exam simulations: self-introduction, picture-card topics, and roleplays. She's the one to book whenever a domain needs to move from 'talked about it' to 'can perform it live'.",
     dontRepeat: [
-      "Self-introduction basics — done 2026-06-30. Only the closing line still needs work.",
-      "Leisure picture-card topic — done 2026-06-30. Use a new topic next time.",
+      "KDE format overview and supported self-introduction — covered 2026-07-01. Keep future sessions task-practice focused.",
+      "Train-station picture-card setup — practised 2026-07-03. Reuse only to test independent performance.",
     ],
     sessionPlan:
       "10 min warm-up Q&A → 20 min doctor roleplay → 15 min pharmacy roleplay → 15 min follow-up questions on both.",
@@ -64,7 +60,8 @@ export const teachers: Teacher[] = [
     brief:
       "Patrick owns listening and Swiss German survival — the weakest area overall. He also runs spontaneous spoken warm-ups. Short, frequent sessions work better here than long ones.",
     dontRepeat: [
-      "Train-announcement listening — done 2026-06-15. Move on to voicemail-style audio.",
+      "Diagnostic restaurant, TV-shop and Vienna-reading tasks — done 2026-06-30. Move to timed or German-only versions.",
+      "Guided lyric reading with 'Lieder' — done 2026-07-02. Prefer domain vocabulary and Swiss German key facts next.",
     ],
     sessionPlan:
       "5 min warm-up chat → 20 min Swiss German voicemail drill → 20 min standard-German roleplay → 15 min review of missed numbers/names.",
@@ -77,7 +74,8 @@ export const teachers: Teacher[] = [
     brief:
       "Denajdër drills the A2 writing checklist and timed reading. Best used for template-based writing correction and scanning real notices (Gemeinde, events) for key facts.",
     dontRepeat: [
-      "Sommerfest-Fällanden reading — done 2026-06-22. Use a new notice (Stadtspital or Gemeinde) next time.",
+      "Exam intake and background discussion — done 2026-07-01. Move to timed reading/writing tasks.",
+      "Personality speaking prompts — done 2026-07-03. Reuse only as German-only model-answer review.",
     ],
     sessionPlan:
       "10 min correct last writing homework → 25 min new writing task (untimed) → 25 min timed reading text.",
@@ -253,11 +251,9 @@ export const writingTasks: WritingTask[] = [
   {
     id: "invitation",
     label: "Write an invitation",
-    status: "started",
-    modelAnswer:
-      "Zürich, 3. Juli 2026\n\nLiebe Kolleginnen und Kollegen\n\nSeit zehn Jahren arbeite ich in unserer Firma. Das möchte ich mit einem Apéro feiern. Er ist am Freitag, 17. Juli, ab 17 Uhr im Pausenraum. Bitte meldet euch bis 10. Juli bei mir an.\n\nFreundliche Grüsse\nPierre",
-    mistakes: ["Text too short for the prompt (target: ca. 40 Wörter)", "Forgot to say where to register"],
-    nextDrill: "Rewrite to about 40 words, keep the registration request.",
+    status: "planned",
+    mistakes: [],
+    nextDrill: "First real attempt: write a complete 40-60 word invitation with reason, date, place, reply request and closing.",
   },
   {
     id: "reply-to-invitation",
@@ -332,126 +328,6 @@ export const speakingChecklist: SpeakingItem[] = [
 // ---------------------------------------------------------------------------
 
 export const lessonLogs: LessonLog[] = [
-  {
-    id: "l1",
-    date: "2026-06-10",
-    teacher: "heidi",
-    domains: ["personal-profile"],
-    skills: ["sprechen"],
-    practiced: "First draft of the 2-minute self-introduction (Name, Wohnort, Familie, Arbeit, Freizeit).",
-    vocabulary: ["der Wohnort", "der Familienstand", "die Herkunft"],
-    verbs: ["heissen", "wohnen", "arbeiten"],
-    grammar: ["Verb-second word order in main clauses"],
-    mistakes: ["Stops after ~70 seconds, no closing line"],
-    canNowDo: "Introduce himself with name, home town and job in a fixed order.",
-    repeatNext: "Add a closing sentence and repeat with timing.",
-    isSample: true,
-  },
-  {
-    id: "l2",
-    date: "2026-06-15",
-    teacher: "patrick",
-    domains: ["transport", "swiss-german"],
-    skills: ["hoeren"],
-    practiced: "Train station announcements (delays, platform changes) and a first short Swiss German clip.",
-    vocabulary: ["die Verspätung", "das Gleis", "umsteigen"],
-    verbs: ["umsteigen", "ankommen", "abfahren"],
-    grammar: ["Separable verbs in announcements (an-kommen, ab-fahren)"],
-    mistakes: ["Misses platform numbers", "Understood almost nothing of the Swiss German clip"],
-    canNowDo: "Recognise 'delay' and 'platform change' in slow standard German.",
-    repeatNext: "Same clip type, slower Swiss German with pre-taught vocabulary.",
-    isSample: true,
-  },
-  {
-    id: "l3",
-    date: "2026-06-17",
-    teacher: "denajder",
-    domains: ["work-study"],
-    skills: ["schreiben"],
-    practiced: "6-part writing structure; drafted the Apéro invitation task.",
-    vocabulary: ["der Apéro", "die Kollegen", "sich anmelden"],
-    verbs: ["einladen", "sich anmelden", "stattfinden"],
-    grammar: ["Word order: time – manner – place"],
-    mistakes: ["Text too short for the prompt (target: ca. 40 Wörter)", "Forgot to say where to register"],
-    canNowDo: "Write a basic invitation with a date and a place.",
-    repeatNext: "Rewrite to about 40 words including the registration request.",
-    isSample: true,
-  },
-  {
-    id: "l4",
-    date: "2026-06-19",
-    teacher: "heidi",
-    domains: ["work-study"],
-    skills: ["sprechen"],
-    practiced: "Talking about work: role, daily tasks, colleagues.",
-    vocabulary: ["der Arbeitgeber", "die Teilzeit", "der Kollege"],
-    verbs: ["arbeiten", "zusammenarbeiten", "gefallen"],
-    grammar: ["Word order after 'weil' (verb-final)"],
-    mistakes: ["'weil ich bin froh' instead of 'weil ich froh bin'"],
-    canNowDo: "Describe his job and daily tasks in simple sentences.",
-    repeatNext: "5 more 'weil' sentences about work, checked for word order.",
-    isSample: true,
-  },
-  {
-    id: "l5",
-    date: "2026-06-22",
-    teacher: "denajder",
-    domains: ["leisure"],
-    skills: ["lesen"],
-    practiced: "Reading the 'Sommerfest in Fällanden' programme: dates, times, locations.",
-    vocabulary: ["die Anmeldefrist", "das Programm", "die Teilnahme"],
-    verbs: ["teilnehmen", "sich anmelden", "stattfinden"],
-    grammar: ["Dates written as '14. Juni' vs '14.6.'"],
-    mistakes: ["Missed the registration deadline in the text"],
-    canNowDo: "Find dates, times and locations in a short event programme.",
-    repeatNext: "New text under time pressure (Stadtspital open day).",
-    isSample: true,
-  },
-  {
-    id: "l6",
-    date: "2026-06-24",
-    teacher: "patrick",
-    domains: ["health", "swiss-german"],
-    skills: ["hoeren"],
-    practiced: "Short Swiss German clip: doctor's practice voicemail about an appointment change.",
-    vocabulary: ["de Arzttermin", "verschiebe"],
-    verbs: ["verschieben", "zrugruefe (zurückrufen)"],
-    grammar: ["Numbers in Swiss German (zwänzg, drüssg)"],
-    mistakes: ["Could not extract the new date/time"],
-    canNowDo: "Recognise the word 'Termin' in Swiss German audio.",
-    repeatNext: "Same voicemail type daily this week, different examples.",
-    isSample: true,
-  },
-  {
-    id: "l7",
-    date: "2026-06-28",
-    teacher: "patrick",
-    domains: ["health"],
-    skills: ["sprechen", "hoeren"],
-    practiced: "Explaining symptoms, making a doctor appointment, understanding a voicemail.",
-    vocabulary: ["der Termin", "verschieben", "die Apotheke", "der Notfalldienst", "die Beschwerden"],
-    verbs: ["anrufen", "absagen", "verschieben", "brauchen"],
-    grammar: ["Word order after 'weil'"],
-    mistakes: ["Word order after 'weil'", "Difficulty understanding the Swiss German voicemail"],
-    canNowDo: "Ask for a doctor appointment in simple German.",
-    repeatNext: "Swiss German voicemail + pharmacy roleplay.",
-    isSample: true,
-  },
-  {
-    id: "l8",
-    date: "2026-06-30",
-    teacher: "heidi",
-    domains: ["leisure", "personal-profile"],
-    skills: ["sprechen"],
-    practiced: "First picture-card simulation (leisure/clubs) using the 6-step speaking structure.",
-    vocabulary: ["der Verein", "das Sommerfest"],
-    verbs: ["mitmachen", "organisieren"],
-    grammar: ["Giving an opinion: 'Ich finde ... weil ...'"],
-    mistakes: ["Struggled to give a personal opinion", "Ran under time (3 of 5 minutes)"],
-    canNowDo: "Describe a picture and connect it to his personal life.",
-    repeatNext: "Second picture-card simulation on a health/doctor topic, full 5 minutes.",
-    isSample: true,
-  },
   {
     id: "l9",
     date: "2026-07-01",

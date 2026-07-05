@@ -68,7 +68,6 @@ export interface LessonLog {
   mistakes: string[];
   canNowDo: string;
   repeatNext: string;
-  isSample?: boolean;
 }
 
 export interface PlannedSession {

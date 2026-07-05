@@ -13,7 +13,6 @@ export function LessonLogCard({ log }: { log: LessonLog }) {
           <span className="font-medium text-ink">{teacher?.name}</span>
           <span className="text-muted">· {domainLabels}</span>
         </div>
-        {log.isSample && <span className="text-xs text-muted">Sample</span>}
       </div>
 
       <p className="mb-3 text-sm text-ink-soft">{log.practiced}</p>
