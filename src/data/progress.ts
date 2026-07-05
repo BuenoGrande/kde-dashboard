@@ -98,9 +98,9 @@ export const domains: Domain[] = [
     status: "started",
     priority: "medium",
     teacher: "heidi",
-    lastPracticed: "2026-06-30",
-    nextAction: "Add a natural closing line to the self-introduction and time it.",
-    note: "Fluent up to ~90 seconds; stalls without a closing line.",
+    lastPracticed: "2026-07-01",
+    nextAction: "Make the origin/residence/exam-goal intro automatic, then time the full answer.",
+    note: "Can explain background with support; still switches languages under pressure.",
   },
   {
     id: "housing",
@@ -118,9 +118,9 @@ export const domains: Domain[] = [
     status: "started",
     priority: "medium",
     teacher: "heidi",
-    lastPracticed: "2026-06-19",
-    nextAction: "Add a work-related listening voicemail and a short reading text.",
-    note: "Describes his job well; 'weil'-clauses still shaky.",
+    lastPracticed: "2026-07-01",
+    nextAction: "Answer spontaneous job questions in short German sentences.",
+    note: "Can name field and workplace context; needs cleaner German-only production.",
   },
   {
     id: "health",
@@ -138,9 +138,9 @@ export const domains: Domain[] = [
     status: "started",
     priority: "high",
     teacher: "denajder",
-    lastPracticed: "2026-06-05",
+    lastPracticed: "2026-07-01",
     nextAction: "Read one Gemeinde notice together and extract date, place, deadline.",
-    note: "Administrative vocabulary still thin.",
+    note: "Exam purpose discussed; needs real timed Gemeinde reading/writing evidence.",
   },
   {
     id: "school-family",
@@ -445,6 +445,39 @@ export const lessonLogs: LessonLog[] = [
     canNowDo: "Describe a picture and connect it to his personal life.",
     repeatNext: "Second picture-card simulation on a health/doctor topic, full 5 minutes.",
     isSample: true,
+  },
+  {
+    id: "l9",
+    date: "2026-07-01",
+    teacher: "denajder",
+    domains: ["personal-profile", "work-study", "gemeinde"],
+    skills: ["sprechen", "schreiben", "lesen", "hoeren"],
+    practiced:
+      "First Denajder intake lesson: clarified KDE exam goals, explained background/work in mixed German-English, and agreed on exam-focused speaking, writing, listening and reading workflow.",
+    vocabulary: [
+      "die Staatsbürgerschaft",
+      "die Prüfung",
+      "in zwei Wochen",
+      "die E-Mail",
+      "die Frage",
+      "das Formular",
+      "die Frist",
+    ],
+    verbs: ["wohnen", "kommen", "arbeiten", "brauchen", "verstehen", "schreiben", "verschieben"],
+    grammar: [
+      "Verb-final word order after dass/weil",
+      "Fixed chunks for cases: in der Schweiz, in den USA, für die Prüfung",
+    ],
+    mistakes: [
+      "Frequent switch to French/English when searching for words",
+      "Unstable self-introduction chunks: aus Frankreich / in der Schweiz / in den USA",
+      "Time expression error around 'in zwei Wochen'",
+      "Avoids cases/articles instead of memorising essential fixed phrases",
+    ],
+    canNowDo:
+      "Explain the exam goal and personal background with support, and identify the lesson strategy for the next two weeks.",
+    repeatNext:
+      "Run one real Denajder task: 10-minute reading notice or 40-word A2 email, plus spontaneous speaking from pre-taught vocabulary.",
   },
 ];
 
