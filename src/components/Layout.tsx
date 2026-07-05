@@ -3,8 +3,8 @@ import { NavLink } from "react-router-dom";
 
 const NAV_LINKS = [
   { to: "/", label: "Dashboard", end: true },
-  { to: "/domains", label: "Vocabulary" },
   { to: "/exam", label: "Exam practice" },
+  { to: "/domains", label: "Vocabulary" },
   { to: "/teachers", label: "Teachers" },
   { to: "/logs", label: "Lesson logs" },
 ];

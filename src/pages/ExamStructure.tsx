@@ -105,7 +105,7 @@ export function ExamStructure() {
           <h1 className="mt-1 text-3xl font-semibold tracking-tight text-ink">Writing, speaking, listening, reading</h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-soft">
             Exam practice is the format layer: Hören, Lesen, Schreiben and Sprechen drills.
-            Vocabulary stays in the topic boxes; this page checks whether Pierre can perform
+            Vocabulary stays in the mission cards; this page checks whether Pierre can perform
             the exam-style task.
           </p>
         </div>

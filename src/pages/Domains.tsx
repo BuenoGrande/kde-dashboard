@@ -18,7 +18,7 @@ export function Domains() {
       <section className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
           <p className="text-xs font-semibold uppercase text-muted">Vocabulary domains</p>
-          <h1 className="mt-1 text-3xl font-semibold tracking-tight text-ink">15 topic boxes</h1>
+          <h1 className="mt-1 text-3xl font-semibold tracking-tight text-ink">15 vocabulary missions</h1>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-soft">
             Vocabulary is the topic layer: words, questions and scenarios by life domain.
             Exam practice is the format layer for Hören, Lesen, Schreiben and Sprechen.
@@ -56,7 +56,7 @@ export function Domains() {
               key={domain.id}
               title={domain.label}
               status={domain.status}
-              meta={`${domain.priority} priority · ${teacher?.name ?? "Teacher"}`}
+              meta={teacher ? `${teacher.name} mission` : "Teacher mission"}
               detail={domain.nextAction}
               to={`/domains/${domain.id}`}
               index={index}

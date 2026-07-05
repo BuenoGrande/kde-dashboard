@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import type { Status } from "../data/types";
-import { Dot } from "./Badge";
-import { STATUS_BORDER, STATUS_FG, STATUS_LABEL } from "../lib/status";
+import { STATUS_FG, STATUS_LABEL, STATUS_TILE } from "../lib/status";
 
 interface CompetencyTileProps {
   title: string;
@@ -28,21 +27,20 @@ function TileBody({
 }: Omit<CompetencyTileProps, "to" | "index" | "onClick">) {
   return (
     <div
-      className={`group relative flex min-h-44 flex-col overflow-hidden rounded-lg border bg-surface p-4 text-left transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_34px_-24px_rgba(36,44,39,0.55)] ${
-        selected ? "border-ink shadow-[0_18px_36px_-26px_rgba(36,44,39,0.8)]" : STATUS_BORDER[status]
+      className={`group relative flex min-h-44 flex-col overflow-hidden rounded-lg border p-4 text-left transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_16px_34px_-24px_rgba(36,44,39,0.55)] ${
+        selected ? "border-ink bg-surface shadow-[0_18px_36px_-26px_rgba(36,44,39,0.8)]" : STATUS_TILE[status]
       }`}
     >
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          {meta && <p className="mb-2 text-[0.68rem] font-semibold uppercase text-muted">{meta}</p>}
-          <h2 className="text-base font-semibold leading-tight text-ink">{title}</h2>
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-wrap items-start justify-between gap-2">
+          {meta && <p className="text-[0.68rem] font-semibold uppercase leading-snug text-muted">{meta}</p>}
+          <span
+            className={`inline-flex max-w-full justify-center rounded-md bg-surface/72 px-2 py-1 text-center text-[0.68rem] font-semibold uppercase leading-tight ${STATUS_FG[status]}`}
+          >
+            {STATUS_LABEL[status]}
+          </span>
         </div>
-        <span
-          className={`inline-flex shrink-0 items-center gap-1.5 rounded-md bg-canvas px-2 py-1 text-[0.68rem] font-semibold uppercase ${STATUS_FG[status]}`}
-        >
-          <Dot status={status} />
-          {STATUS_LABEL[status]}
-        </span>
+        <h2 className="text-balance text-base font-semibold leading-tight text-ink">{title}</h2>
       </div>
 
       {detail && <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-soft">{detail}</p>}
@@ -54,11 +52,6 @@ function TileBody({
             {selected ? "Selected" : actionLabel}
           </span>
         )}
-      </div>
-      <div className="absolute inset-x-4 bottom-0 h-1 rounded-t-full bg-border">
-        <div
-          className={`h-full rounded-t-full ${STATUS_BORDER[status].replace("border-", "bg-").replace("/30", "").replace("/40", "")}`}
-        />
       </div>
     </div>
   );

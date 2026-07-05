@@ -1,5 +1,5 @@
 import type { Status } from "../data/types";
-import { STATUS_DOT, STATUS_LABEL, statusBadgeClasses } from "../lib/status";
+import { STATUS_LABEL, statusBadgeClasses } from "../lib/status";
 
 export function Badge({ status, children }: { status: Status; children?: React.ReactNode }) {
   return (
@@ -9,8 +9,4 @@ export function Badge({ status, children }: { status: Status; children?: React.R
       {children ?? STATUS_LABEL[status]}
     </span>
   );
-}
-
-export function Dot({ status }: { status: Status }) {
-  return <span className={`inline-block h-2 w-2 rounded-full ${STATUS_DOT[status]}`} />;
 }

@@ -20,19 +20,19 @@ export const STATUS_FG: Record<Status, string> = {
 };
 
 export const STATUS_BORDER: Record<Status, string> = {
-  not_covered: "border-status-grey-fg/30",
-  started: "border-status-yellow-fg/40",
-  needs_review: "border-status-orange-fg/40",
-  ready: "border-status-green-fg/40",
-  planned: "border-status-blue-fg/40",
+  not_covered: "border-status-grey-fg/20",
+  started: "border-status-yellow-fg/25",
+  needs_review: "border-status-orange-fg/25",
+  ready: "border-status-green-fg/25",
+  planned: "border-status-blue-fg/25",
 };
 
-export const STATUS_DOT: Record<Status, string> = {
-  not_covered: "bg-status-grey-fg",
-  started: "bg-status-yellow-fg",
-  needs_review: "bg-status-orange-fg",
-  ready: "bg-status-green-fg",
-  planned: "bg-status-blue-fg",
+export const STATUS_TILE: Record<Status, string> = {
+  not_covered: "border-status-grey-fg/20 bg-status-grey-bg/45",
+  started: "border-status-yellow-fg/25 bg-status-yellow-bg/42",
+  needs_review: "border-status-orange-fg/25 bg-status-orange-bg/35",
+  ready: "border-status-green-fg/25 bg-status-green-bg/38",
+  planned: "border-status-blue-fg/25 bg-status-blue-bg/42",
 };
 
 export const STATUS_LABEL: Record<Status, string> = {

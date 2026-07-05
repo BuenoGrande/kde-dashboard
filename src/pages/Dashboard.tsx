@@ -1,22 +1,21 @@
 import { Link } from "react-router-dom";
-import { Dot } from "../components/Badge";
 import { Card, CardHeading } from "../components/Card";
 import { CompetencyTile } from "../components/CompetencyTile";
-import { examFormatTasks, transcriptAgentOutputs } from "../data/courseContent";
+import { examFormatTasks } from "../data/courseContent";
 import {
   domains,
   lessonLogsSorted,
-  nextPlannedSession,
+  nextSessionForTeacher,
   priorities,
   skillLevels,
   speakingChecklist,
   teacherById,
+  teachers,
   writingTasks,
 } from "../data/progress";
 import type { Status } from "../data/types";
 import {
   STATUS_LABEL,
-  STATUS_ORDER,
   readinessFromStatuses,
   statusBadgeClasses,
   statusCounts,
@@ -29,47 +28,118 @@ interface BoardSummaryProps {
   detail: string;
 }
 
+function coverageTone(pct: number) {
+  if (pct >= 76) {
+    return {
+      card: "border-status-green-fg/25 bg-status-green-bg/38",
+      bar: "bg-status-green-fg",
+      text: "text-status-green-fg",
+      label: "solid",
+    };
+  }
+  if (pct >= 51) {
+    return {
+      card: "border-status-yellow-fg/25 bg-status-yellow-bg/42",
+      bar: "bg-status-yellow-fg",
+      text: "text-status-yellow-fg",
+      label: "building",
+    };
+  }
+  if (pct >= 26) {
+    return {
+      card: "border-status-orange-fg/25 bg-status-orange-bg/35",
+      bar: "bg-status-orange-fg",
+      text: "text-status-orange-fg",
+      label: "review",
+    };
+  }
+  return {
+    card: "border-status-grey-fg/20 bg-status-grey-bg/45",
+    bar: "bg-status-grey-fg",
+    text: "text-status-grey-fg",
+    label: "new",
+  };
+}
+
 function BoardSummary({ title, href, statusItems, detail }: BoardSummaryProps) {
   const counts = statusCounts(statusItems);
   const readiness = readinessFromStatuses(statusItems);
+  const tone = coverageTone(readiness);
+  const visibleCounts = (["needs_review", "not_covered", "ready"] satisfies Status[]).filter(
+    (status) => counts[status] > 0,
+  );
 
   return (
     <Link
       to={href}
-      className="block rounded-lg border border-border bg-surface p-4 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-28px_rgba(36,44,39,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+      className={`block rounded-lg border p-4 transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-28px_rgba(36,44,39,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ink ${tone.card}`}
     >
-      <div className="mb-4 flex items-start justify-between gap-3">
-        <div>
-          <p className="text-xs font-semibold uppercase text-muted">{title}</p>
-          <p className="mt-1 text-sm leading-relaxed text-ink-soft">{detail}</p>
+      <div className="flex min-h-28 flex-col">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase text-muted">{title}</p>
+            <p className="mt-1 text-sm leading-relaxed text-ink-soft">{detail}</p>
+          </div>
+          <span className="font-mono text-3xl font-semibold leading-none text-ink">{readiness}%</span>
         </div>
-        <span className="font-mono text-2xl font-semibold text-ink">{readiness}%</span>
+        <div className="mt-auto pt-4">
+          <div className="h-2 overflow-hidden rounded-full bg-surface/80">
+            <div className={`h-full rounded-full ${tone.bar}`} style={{ width: `${readiness}%` }} />
+          </div>
+          <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[0.68rem] font-semibold uppercase text-muted">
+            <span className={`mr-1 ${tone.text}`}>{tone.label}</span>
+            {visibleCounts.map((status) => (
+              <span key={status} className="rounded bg-surface/62 px-1.5 py-0.5 leading-tight">
+                {counts[status]} {STATUS_LABEL[status]}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
-      <div className="mb-3 flex flex-wrap gap-1.5">
-        {statusItems.slice(0, 10).map((item) => (
-          <span key={item.id} title={STATUS_LABEL[item.status]}>
-            <Dot status={item.status} />
-          </span>
-        ))}
-      </div>
-      <div className="mb-3 space-y-1.5 text-xs text-ink-soft">
+      <div className="mt-4 space-y-1.5 text-xs text-ink-soft">
         {statusItems
           .filter((item) => item.status !== "ready")
           .slice(0, 2)
           .map((item) => (
-            <p key={item.id} className="truncate">
+            <p key={item.id} className="line-clamp-1">
               <span className="font-semibold text-muted">{STATUS_LABEL[item.status]}:</span> {item.label}
             </p>
           ))}
       </div>
-      <div className="grid grid-cols-2 gap-1.5 text-[0.68rem] font-semibold uppercase text-muted">
-        {STATUS_ORDER.filter((status) => counts[status] > 0).map((status) => (
-          <span key={status} className="rounded-md bg-canvas px-2 py-1">
-            {counts[status]} {STATUS_LABEL[status]}
-          </span>
-        ))}
-      </div>
     </Link>
+  );
+}
+
+function NextLessonsByTeacher() {
+  return (
+    <Card>
+      <CardHeading eyebrow="Next lessons" title="One clear mission per teacher" />
+      <div className="grid gap-3">
+        {teachers.map((teacher) => {
+          const next = nextSessionForTeacher(teacher.id);
+
+          return (
+            <div key={teacher.id} className="rounded-lg border-l-4 border-border bg-canvas px-3 py-3">
+              <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
+                <p className="font-semibold text-ink">{teacher.name} mission</p>
+                {next && <span className="font-mono text-xs text-muted">{next.date}</span>}
+              </div>
+              <p className="text-sm leading-relaxed text-ink-soft">
+                {next ? next.goal : "No lesson scheduled yet."}
+              </p>
+              {next && (
+                <Link
+                  to={`/domains/${next.domain}`}
+                  className="mt-2 inline-flex text-xs font-semibold uppercase text-ink hover:underline"
+                >
+                  Open mission
+                </Link>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </Card>
   );
 }
 
@@ -81,7 +151,6 @@ function coverageLabel(pct: number) {
 }
 
 export function Dashboard() {
-  const next = nextPlannedSession();
   const recentLogs = lessonLogsSorted().slice(0, 3);
   const topPriorities = priorities.slice(0, 4);
   const listeningTasks = examFormatTasks.filter((item) => item.mode === "listening");
@@ -111,11 +180,6 @@ export function Dashboard() {
               <h1 className="mt-2 text-4xl font-semibold leading-none tracking-tight text-ink">
                 {coverageLabel(overall)}
               </h1>
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-soft">
-                One view for Pierre and the teachers. The percentage is study coverage, not
-                a KDE pass score; the exam gates below keep Hören, Lesen, Schreiben and
-                Sprechen visible.
-              </p>
               <div className="mt-4 grid gap-2 text-xs font-semibold uppercase text-muted sm:grid-cols-2">
                 <span className="rounded-md bg-surface px-2.5 py-1.5">
                   Written: {readinessFromStatuses(writtenGate)}%
@@ -156,22 +220,7 @@ export function Dashboard() {
           </div>
         </Card>
 
-        <Card>
-          <CardHeading eyebrow="Next session" title={next ? next.goal : "Nothing scheduled"} />
-          {next ? (
-            <div className="space-y-3 text-sm text-ink-soft">
-              <p>
-                <span className="font-mono text-xs text-muted">{next.date}</span>{" "}
-                <span className="font-semibold text-ink">{teacherById(next.teacher)?.name}</span>
-              </p>
-              <Link to={`/domains/${next.domain}`} className="inline-flex rounded-md bg-ink px-3 py-2 text-sm font-semibold text-white transition active:scale-[0.98]">
-                Open domain
-              </Link>
-            </div>
-          ) : (
-            <p className="text-sm text-muted">Add the next planned session in progress.ts.</p>
-          )}
-        </Card>
+        <NextLessonsByTeacher />
       </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
@@ -214,7 +263,7 @@ export function Dashboard() {
               key={domain.id}
               title={domain.label}
               status={domain.status}
-              meta="High priority domain"
+              meta="Quest domain"
               detail={domain.nextAction}
               to={`/domains/${domain.id}`}
               index={index}
@@ -255,17 +304,6 @@ export function Dashboard() {
                 </li>
               ))}
             </ol>
-          </Card>
-
-          <Card className="bg-agent-teacher">
-            <CardHeading eyebrow="Transcript agent" title="After every lesson" />
-            <div className="grid gap-2 text-sm text-ink-soft sm:grid-cols-2">
-              {transcriptAgentOutputs.slice(0, 6).map((item) => (
-                <p key={item} className="rounded-lg bg-surface/80 px-3 py-2">
-                  {item}
-                </p>
-              ))}
-            </div>
           </Card>
         </div>
       </section>

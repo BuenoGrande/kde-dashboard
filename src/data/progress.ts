@@ -779,15 +779,15 @@ export const plannedSessions: PlannedSession[] = [
     id: "p2",
     date: "2026-07-09",
     teacher: "denajder",
-    domain: "work-study",
-    goal: "Writing: invitation word count, then appointment change and information request.",
+    domain: "gemeinde",
+    goal: "Gemeinde reading plus writing: extract deadline, location and required action, then write a 40-60 word information request.",
   },
   {
     id: "p3",
     date: "2026-07-10",
     teacher: "heidi",
     domain: "health",
-    goal: "Roleplay: doctor appointment, follow-up questions, then a pharmacy scenario.",
+    goal: "Doctor/pharmacy roleplay: make an appointment, explain symptoms, ask follow-up questions and repeat without French or English.",
   },
   {
     id: "p4",
