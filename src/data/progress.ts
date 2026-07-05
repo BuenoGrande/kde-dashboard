@@ -32,7 +32,7 @@ import { readinessFromStatuses, statusCounts } from "../lib/status";
 
 export const skillLevels: SkillLevel[] = [
   { id: "hoeren", label: "Hören", level: "B1", status: "needs_review" },
-  { id: "lesen", label: "Lesen", level: "A2", status: "started" },
+  { id: "lesen", label: "Lesen", level: "A2", status: "needs_review" },
   { id: "schreiben", label: "Schreiben", level: "A2", status: "started" },
   { id: "sprechen", label: "Sprechen", level: "B1", status: "started" },
 ];
@@ -128,9 +128,9 @@ export const domains: Domain[] = [
     status: "needs_review",
     priority: "high",
     teacher: "heidi",
-    lastPracticed: "2026-06-28",
+    lastPracticed: "2026-07-01",
     nextAction: "Roleplay: doctor appointment + pharmacy conversation + follow-up questions.",
-    note: "Can explain symptoms and book an appointment; pharmacy scenario still open.",
+    note: "Can handle simple health-notice reading with support; spoken doctor/pharmacy scenario still needs a full roleplay.",
   },
   {
     id: "gemeinde",
@@ -177,9 +177,9 @@ export const domains: Domain[] = [
     status: "started",
     priority: "low",
     teacher: "patrick",
-    lastPracticed: "2026-06-30",
+    lastPracticed: "2026-07-01",
     nextAction: "Listen to a radio-style event announcement; answer true/false questions.",
-    note: "Can describe hobbies; event-listening not tested yet.",
+    note: "Can extract basic facts from an event programme with support; event-listening not tested yet.",
   },
   {
     id: "waste",
@@ -478,6 +478,64 @@ export const lessonLogs: LessonLog[] = [
       "Explain the exam goal and personal background with support, and identify the lesson strategy for the next two weeks.",
     repeatNext:
       "Run one real Denajder task: 10-minute reading notice or 40-word A2 email, plus spontaneous speaking from pre-taught vocabulary.",
+  },
+  {
+    id: "l10",
+    date: "2026-07-01",
+    teacher: "heidi",
+    domains: ["personal-profile", "work-study", "leisure", "health", "gemeinde"],
+    skills: ["sprechen", "lesen", "hoeren"],
+    practiced:
+      "First Heidi intake lesson: clarified the KDE exam format, gave a supported self-introduction, reviewed the model test, briefly listened to one sample audio, and worked through Sommerfest and Stadtspital A2 reading tasks.",
+    vocabulary: [
+      "die Prüfung",
+      "in zwei Wochen",
+      "die Staatsbürgerschaft",
+      "der Bürger",
+      "die Forschung",
+      "der Wissenschaftler",
+      "über den Alltag",
+      "das Dorfszentrum",
+      "außerhalb",
+      "mitorganisieren",
+      "die Feuerwehr",
+      "der Verein",
+      "der Wettbewerb",
+      "die Anzeige",
+      "Tag der offenen Tür",
+      "kostenlos",
+      "eintragen",
+      "untersuchen lassen",
+      "die Ausnahme",
+    ],
+    verbs: [
+      "sich vorstellen",
+      "wohnen",
+      "arbeiten",
+      "sich integrieren",
+      "stattfinden",
+      "mitorganisieren",
+      "überprüfen",
+      "eintragen",
+      "untersuchen lassen",
+    ],
+    grammar: [
+      "Fixed chunks: in zwei Wochen, in der Schweiz, in Frankreich, für die Prüfung",
+      "über + Akkusativ: über den Alltag",
+      "lassen as auxiliary: two infinitives in Perfekt, e.g. reparieren lassen",
+      "Keep exam German simple instead of overbuilding grammar",
+    ],
+    mistakes: [
+      "Said 'zwei Foren' instead of 'zwei Wochen'",
+      "Frequent switches to French/English during self-introduction",
+      "Unstable phrasing for Swiss citizenship / naturalisation goal",
+      "Needed vocabulary support for common notice words such as außerhalb, Verein, Anzeige and Wettbewerb",
+      "Article and case errors in reading discussion, e.g. 'ein kostenlose Gesundheitscheck'",
+    ],
+    canNowDo:
+      "Explain the exam goal and personal context with support, and extract several key facts from simple event/health notices when guided.",
+    repeatNext:
+      "Run a German-only doctor appointment roleplay, then repeat a timed notice-reading task without vocabulary rescue before checking answers.",
   },
 ];
 

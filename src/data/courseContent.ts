@@ -1088,12 +1088,16 @@ export const examFormatTasks: ExamFormatTask[] = [
   {
     id: "notice-key-facts",
     label: "Read notices for key facts",
-    status: "started",
+    status: "needs_review",
     mode: "reading",
     level: "A2",
     examBrief: "Reading task: extract date, time, place, deadline and required action from notices, programmes or letters.",
-    nextDrill: "Read one Gemeinde notice under time pressure and answer five factual questions.",
-    mistakes: ["Misses registration deadlines when the text is dense"],
+    nextDrill: "Repeat a new notice under time pressure: answer date, place, organiser, action and deadline without vocabulary rescue.",
+    mistakes: [
+      "Misses registration deadlines when the text is dense",
+      "Needs vocabulary support for common notice words such as außerhalb, Verein, Anzeige and Wettbewerb",
+      "Not yet timed; tends to translate instead of scanning only key facts",
+    ],
     checkpoints: ["who", "what", "where", "when", "deadline", "required document"],
     scenarios: [
       {
