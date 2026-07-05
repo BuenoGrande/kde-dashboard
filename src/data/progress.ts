@@ -99,8 +99,8 @@ export const domains: Domain[] = [
     priority: "medium",
     teacher: "heidi",
     lastPracticed: "2026-07-03",
-    nextAction: "Extend the self-introduction to two minutes with one closing sentence, then repeat without French/English.",
-    note: "Can produce the core intro chunks; still runs short and needs cleaner German-only delivery.",
+    nextAction: "Extend the self-introduction and personality answers, then repeat without French/English.",
+    note: "Can produce core intro and personality chunks with support; still needs cleaner German-only delivery.",
   },
   {
     id: "housing",
@@ -115,12 +115,12 @@ export const domains: Domain[] = [
   {
     id: "work-study",
     label: "Work / study",
-    status: "started",
+    status: "needs_review",
     priority: "medium",
     teacher: "heidi",
-    lastPracticed: "2026-07-02",
-    nextAction: "Answer spontaneous job questions in short German sentences.",
-    note: "Can name field and workplace context; needs cleaner German-only production.",
+    lastPracticed: "2026-07-03",
+    nextAction: "Prepare a short answer for why his personality fits research/work, using simple dass/weil clauses.",
+    note: "Can connect curiosity/personality to work with support; production becomes unstable when sentences get complex.",
   },
   {
     id: "health",
@@ -145,11 +145,12 @@ export const domains: Domain[] = [
   {
     id: "school-family",
     label: "School / family / children",
-    status: "not_covered",
+    status: "started",
     priority: "low",
     teacher: "denajder",
-    lastPracticed: null,
-    nextAction: "Introduce vocabulary only, then one short reading text.",
+    lastPracticed: "2026-07-03",
+    nextAction: "Practise four clean sentences about family members' personalities and similarities.",
+    note: "Family personality was introduced: father, mother, brother, and similarity to father.",
   },
   {
     id: "shopping-services",
@@ -320,7 +321,7 @@ export const speakingChecklist: SpeakingItem[] = [
     id: "follow-up-questions",
     label: "Follow-up question readiness",
     status: "needs_review",
-    note: "Patrick asked spontaneous Alltag, Coop/Migros, pizza and holiday follow-ups; Pierre answers with support but often switches languages.",
+    note: "Handles supported follow-ups on Alltag, opinions and personality, but still needs vocabulary rescue and often switches languages.",
   },
 ];
 
@@ -711,6 +712,52 @@ export const lessonLogs: LessonLog[] = [
       "Start a picture-card description about a train-station scene and write a supported appointment-rescheduling email with excuse, new time and formal closing.",
     repeatNext:
       "Repeat the same two tasks independently: one 5-minute picture-card answer and one timed 40-60 word appointment-change email without teacher-supplied formulas.",
+  },
+  {
+    id: "l14",
+    date: "2026-07-03",
+    teacher: "denajder",
+    domains: ["personal-profile", "work-study", "school-family"],
+    skills: ["sprechen"],
+    practiced:
+      "Second Denajder lesson: personality-topic speaking from the book, including happiness, anger, arrogance, shyness, family personality, friendship qualities and what influences personality. Also discussed oral-exam format and next-step strategy for writing templates and domain vocabulary.",
+    vocabulary: [
+      "bitteschön",
+      "klauen",
+      "wütend",
+      "dickköpfig",
+      "schüchtern",
+      "die Gelegenheit",
+      "die Eigenschaft",
+      "die Art",
+      "geeignet",
+      "neugierig",
+      "ehrlich",
+      "die Ehrlichkeit",
+      "höflich",
+      "die Höflichkeit",
+      "selbstbewusst",
+      "lügen",
+    ],
+    verbs: ["klauen", "entfernen", "beeinflussen", "verändern", "formen", "passen", "lügen", "verbessern"],
+    grammar: [
+      "Past-time clause with als: Als ich ein Kind war, war ich sehr schüchtern.",
+      "Verb-final word order after dass: Ich denke, dass ich wie mein Vater bin.",
+      "Relative clauses with die: Ich mag keine Leute, die wütend sind.",
+      "Comparison with wie: Ich bin wie mein Vater.",
+      "Dative after mit: mit meinem Vater, mit meinen Freunden, mit meinen Kollegen.",
+    ],
+    mistakes: [
+      "Used wenn instead of als for a past-time childhood sentence.",
+      "Unstable dass word order: Ich denke, dass ich wie mein Vater bin.",
+      "Case/article errors around Vater/Freunde/Kollegen and von mir.",
+      "Frequent switches to English/French while searching for vocabulary.",
+      "Needed teacher support to build relative clauses such as die wütend sind.",
+    ],
+    canNowDo:
+      "Answer supported personality questions and give simple opinions about himself, family members and friendship qualities.",
+    repeatNext:
+      "Turn the personality answers into 8 memorisable German-only model answers, then do one timed writing template and one timed reading notice.",
   },
 ];
 
