@@ -105,12 +105,12 @@ export const domains: Domain[] = [
   {
     id: "housing",
     label: "Housing / neighbours",
-    status: "started",
+    status: "needs_review",
     priority: "medium",
     teacher: "denajder",
-    lastPracticed: "2026-06-05",
-    nextAction: "Roleplay responding to a neighbour's noise complaint, spoken and written.",
-    note: "Can read a Hausordnung; hasn't spoken about it yet.",
+    lastPracticed: "2026-07-04",
+    nextAction: "Run a German-only neighbour roleplay, then write a 40-60 word complaint or reply about noise or rubbish.",
+    note: "Can answer supported Wohnraum questions and use a basic polite neighbour complaint formula; still needs German-only delivery, word order and separable verbs.",
   },
   {
     id: "work-study",
@@ -185,11 +185,12 @@ export const domains: Domain[] = [
   {
     id: "waste",
     label: "Waste / recycling / environment",
-    status: "not_covered",
+    status: "started",
     priority: "low",
     teacher: "denajder",
-    lastPracticed: null,
-    nextAction: "First reading pass on a waste-collection notice.",
+    lastPracticed: "2026-07-04",
+    nextAction: "Read one waste-collection notice and practise Müll, wegwerfen, Abholung and Container.",
+    note: "Introduced through a neighbour rubbish roleplay: der Müll, wegwerfen, Das ist nicht mein Müll.",
   },
   {
     id: "civic-admin",
@@ -295,7 +296,7 @@ export const writingTasks: WritingTask[] = [
     label: "Write a neighbour or housing message",
     status: "needs_review",
     mistakes: ["Word order after 'weil' when giving a reason"],
-    nextDrill: "Rewrite the noise-complaint reply, checking 'weil' word order.",
+    nextDrill: "Timed 40-60 word message to a neighbour: ask them to lower music or remove rubbish; include greeting, request, reason with weil, and closing.",
   },
 ];
 
@@ -321,7 +322,7 @@ export const speakingChecklist: SpeakingItem[] = [
     id: "follow-up-questions",
     label: "Follow-up question readiness",
     status: "needs_review",
-    note: "Handles supported follow-ups on Alltag, opinions and personality, but still needs vocabulary rescue and often switches languages.",
+    note: "Handles supported follow-ups on Alltag, opinions, personality and neighbour conflicts, but still needs vocabulary rescue and often switches languages.",
   },
 ];
 
@@ -758,6 +759,69 @@ export const lessonLogs: LessonLog[] = [
       "Answer supported personality questions and give simple opinions about himself, family members and friendship qualities.",
     repeatNext:
       "Turn the personality answers into 8 memorisable German-only model answers, then do one timed writing template and one timed reading notice.",
+  },
+  {
+    id: "l15",
+    date: "2026-07-04",
+    teacher: "denajder",
+    domains: ["housing", "waste"],
+    skills: ["sprechen"],
+    practiced:
+      "Third Denajder lesson: Wohnraum discussion from the book, adapted into neighbour scenarios. Practised housing change over 50 years, city vs countryside, Wohngemeinschaften, polite noise complaint, party/police escalation, and a rubbish conflict roleplay.",
+    vocabulary: [
+      "der Wohnraum",
+      "die Wohngemeinschaft",
+      "heutzutage",
+      "auf dem Land",
+      "in Städten",
+      "beliebt",
+      "beliebter",
+      "teuer",
+      "günstiger",
+      "der Nachbar",
+      "respektvoll",
+      "die Hausarbeiten",
+      "laut",
+      "leise",
+      "die Erlaubnis",
+      "die Polizei",
+      "der Müll",
+    ],
+    verbs: [
+      "sich verändern",
+      "wohnen",
+      "umziehen",
+      "teilen",
+      "helfen",
+      "bevorzugen",
+      "leiser machen",
+      "anrufen",
+      "wegwerfen",
+      "wiederkommen",
+    ],
+    grammar: [
+      "Reflexive verb: Der Wohnraum hat sich verändert.",
+      "Verb-second after fronted phrases: Heutzutage leben mehr Menschen in Städten.",
+      "Opinion frame with verb-second: Meiner Meinung nach sollen die Nachbarn respektvoll sein.",
+      "Verb-final word order after weil: weil es in der Stadt mehr Arbeitsplätze gibt.",
+      "Comparatives with als: teurer als vor fünfzig Jahren.",
+      "zu + Infinitiv after bevorzugen: Ich bevorzuge, allein zu wohnen.",
+      "Modal verbs without zu: Ich möchte allein wohnen.",
+      "Polite Konjunktiv II: Könnten Sie die Musik bitte leiser machen?",
+      "Separable verbs: Ich rufe die Polizei an; den Müll wegwerfen.",
+    ],
+    mistakes: [
+      "Frequent switches to English/French when planning answers or searching for vocabulary.",
+      "Comparison/time phrase errors: teurer als vor fünfzig Jahren.",
+      "Word order after fronted phrases and after weil not automatic yet.",
+      "Case/article errors after mit and in location phrases: mit einem Plan, in der Stadt.",
+      "Plural and agreement errors: Häuser, Wohnungen sind teuer, Wohnraum ist teuer.",
+      "Neighbour roleplay formulas needed teacher support, especially polite register and separable verbs.",
+    ],
+    canNowDo:
+      "Produce supported short answers about housing and shared flats, and use a basic polite neighbour complaint formula: Könnten Sie die Musik bitte leiser machen?",
+    repeatNext:
+      "Repeat housing/neighbour roleplays German-only, then write a 40-60 word neighbour message about noise or rubbish without teacher-supplied formulas.",
   },
 ];
 
