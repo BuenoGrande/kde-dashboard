@@ -154,12 +154,12 @@ export const domains: Domain[] = [
   {
     id: "shopping-services",
     label: "Shopping / services",
-    status: "started",
+    status: "needs_review",
     priority: "low",
     teacher: "denajder",
-    lastPracticed: "2026-06-12",
-    nextAction: "Read a store flyer/notice; extract prices, dates, hours.",
-    note: "Basic shopping vocabulary sits; complaint language missing.",
+    lastPracticed: "2026-06-30",
+    nextAction: "Practise one shop/service roleplay with delivery, return or complaint follow-up.",
+    note: "Can order in a restaurant and ask about buying/delivering a TV with support; complaint language still missing.",
   },
   {
     id: "transport",
@@ -315,8 +315,8 @@ export const speakingChecklist: SpeakingItem[] = [
   {
     id: "follow-up-questions",
     label: "Follow-up question readiness",
-    status: "not_covered",
-    note: "Not drilled as a standalone exercise yet — hesitates when examiners improvise.",
+    status: "started",
+    note: "Patrick asked spontaneous personal, restaurant and shop follow-ups; Pierre answers with support but often switches languages.",
   },
 ];
 
@@ -536,6 +536,50 @@ export const lessonLogs: LessonLog[] = [
       "Explain the exam goal and personal context with support, and extract several key facts from simple event/health notices when guided.",
     repeatNext:
       "Run a German-only doctor appointment roleplay, then repeat a timed notice-reading task without vocabulary rescue before checking answers.",
+  },
+  {
+    id: "l11",
+    date: "2026-06-30",
+    teacher: "patrick",
+    domains: ["personal-profile", "work-study", "leisure", "shopping-services"],
+    skills: ["sprechen", "lesen"],
+    practiced:
+      "First Patrick diagnostic lesson: German self-introduction, spontaneous Q&A, restaurant ordering roleplay, electronics-shop TV roleplay, and guided reading comprehension about a weekend in Vienna.",
+    vocabulary: [
+      "das Knie",
+      "die Freizeit",
+      "das Beispiel",
+      "der Kellner",
+      "der Apfelstrudel",
+      "die Schlagsahne",
+      "der Fernseher",
+      "der Vorschlag",
+      "die Vorschläge",
+      "der Zoll",
+      "die Altstadt",
+      "die Sehenswürdigkeit",
+      "die Aussicht",
+      "die Ausstellung",
+      "die Sonnenstrahlen",
+    ],
+    verbs: ["werden", "arbeiten", "bestellen", "zahlen", "kaufen", "liefern", "besuchen", "genießen"],
+    grammar: [
+      "Verb-second after fronted phrases: In meiner Freizeit mache ich...",
+      "Fixed phrase: Ich möchte Schweizer werden.",
+      "Question phrase: Soll ich die Frage beantworten?",
+      "Polite service questions with Haben Sie...? and Können Sie...?",
+    ],
+    mistakes: [
+      "Frequent switch to English/French when searching for words",
+      "Unstable citizenship phrase before correction: Ich möchte Schweizer werden",
+      "Article and case errors in common chunks: in meiner Freizeit, mit meiner Freundin, einen Fernseher",
+      "Shop roleplay confusion between kaufen and verkaufen",
+      "Guided reading needed vocabulary support for Altstadt, Sehenswürdigkeiten, Aussicht, Ausstellung and genossen",
+    ],
+    canNowDo:
+      "Handle basic personal questions, order in a restaurant, ask for help buying a TV, and answer simple guided reading questions with support.",
+    repeatNext:
+      "Run a German-only speaking drill with repair phrases, then one timed A2 reading task without translation support.",
   },
 ];
 
