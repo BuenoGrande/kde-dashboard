@@ -266,12 +266,16 @@ export const writingTasks: WritingTask[] = [
     id: "appointment-change",
     label: "Cancel or move an appointment",
     status: "needs_review",
+    modelAnswer:
+      "Samstag, 18. Juli 2026\n\nSehr geehrte Frau Kamrani,\n\nich habe heute einen Termin. Aber ich bin krank. Ich werde einen Arzt besuchen. Leider kann ich nicht zu unserem Termin kommen.\n\nIch muss leider den Termin verschieben. Können wir den Termin für Montag um 11 Uhr bitte vereinbaren?\n\nVielen Dank im Voraus. Ich freue mich auf Ihre baldige Rückmeldung.\n\nMit freundlichen Grüßen\nPierre Bongrand",
     mistakes: [
       "Sometimes omits the closing formula",
-      "Needs support for formal greeting, date and Rückmeldung formula",
-      "Case errors: den Termin, einen Arzt, zu unserem Termin",
+      "Needs support for formal greeting, date, Rückmeldung formula and final closing",
+      "Case errors: einen Termin, den Termin, einen Arzt, zu unserem Termin",
+      "Formal email errors in the July 3 draft: Sehr geehrter Heer, ein Termin, Freundlichen",
     ],
-    nextDrill: "Timed 40-60 word appointment-change email without a formula sheet, then correct only cases and word order.",
+    nextDrill:
+      "Timed 40-60 word appointment-change email without a formula sheet; must include greeting, one excuse, new appointment proposal, thanks and correct closing.",
   },
   {
     id: "information-request",
@@ -542,7 +546,7 @@ export const lessonLogs: LessonLog[] = [
     domains: ["personal-profile", "work-study", "leisure", "transport", "health", "digital-services"],
     skills: ["sprechen", "schreiben"],
     practiced:
-      "Second Heidi lesson: self-introduction, train-station picture-card description, opinion phrases with ich denke/glaube/finde/meine, dass word order, accusative basics, and a supported formal email to postpone an appointment.",
+      "Second Heidi lesson: self-introduction, train-station picture-card description, opinion phrases with ich denke/glaube/finde/meine, dass word order, accusative basics, and a supported formal email to postpone an appointment with date, greeting, excuse, new time, thanks and closing.",
     vocabulary: [
       "französisch",
       "die eigene Erfahrung",
@@ -554,6 +558,10 @@ export const lessonLogs: LessonLog[] = [
       "die Rückmeldung",
       "die baldige Rückmeldung",
       "die Ausländerbehörde",
+      "Sehr geehrte Frau ...",
+      "Sehr geehrter Herr ...",
+      "Sehr geehrte Damen und Herren",
+      "Mit freundlichen Grüßen",
     ],
     verbs: [
       "auswählen",
@@ -576,17 +584,21 @@ export const lessonLogs: LessonLog[] = [
       "dir vs dich: Ich sehe dich; ich schicke dir.",
       "Formal email punctuation: lowercase after Sehr geehrte Frau Kamrani,",
       "Polite Konjunktiv II: Können wir den Termin ... vereinbaren?",
+      "Coordinating connectors such as aber, und and oder do not force inversion: Aber ich bin krank.",
+      "Review connector contrast separately: dann was grouped with aber/und/oder in class notes, but it normally takes position 1.",
+      "Termin cases: der Termin, den Termin, dem Termin.",
     ],
     mistakes: [
       "Self-introduction still too short for the exam; needs more detail and a closing line.",
       "Picture-card answer needed support for structure, length and opinion language.",
-      "Article/case errors: auf den Zug, den Termin, einen Arzt.",
+      "Article/case errors: auf den Zug, einen Termin, den Termin, einen Arzt.",
       "Word order after dass not automatic yet.",
       "Frequent switch to French/English when searching for words.",
-      "Formal email formulas needed teacher support: greeting, closing and Rückmeldung sentence.",
+      "Formal email formulas needed teacher support: Sehr geehrte Frau/Herr, Sehr geehrte Damen und Herren, Rückmeldung sentence and closing.",
+      "Final email still contained errors: ich habe ein Termin heute; Sehr geehrter Heer; Freundlichen.",
     ],
     canNowDo:
-      "Start a picture-card description about a train-station scene and write a supported appointment-rescheduling email with excuse, new time and formal closing.",
+      "Start a picture-card description about a train-station scene and write a supported appointment-rescheduling email with date, excuse, new time, thanks and a formal closing.",
     repeatNext:
       "Repeat the same two tasks independently: one 5-minute picture-card answer and one timed 40-60 word appointment-change email without teacher-supplied formulas.",
   },
@@ -828,6 +840,13 @@ export const recurringMistakes: RecurringMistake[] = [
     example: "Ich nehme der Zug / Sie warten einen Zug.",
     correction: "Ich nehme den Zug / Sie warten auf den Zug.",
     relatedSkills: ["sprechen", "schreiben"],
+  },
+  {
+    id: "formal-email-formulas",
+    mistake: "Formal email formulas are not stable yet",
+    example: "Sehr geehrter Heer ... Freundlichen, Pierre",
+    correction: "Sehr geehrter Herr ... Mit freundlichen Grüßen, Pierre",
+    relatedSkills: ["schreiben"],
   },
   {
     id: "perfekt-aux",
