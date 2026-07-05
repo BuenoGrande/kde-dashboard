@@ -95,12 +95,12 @@ export const domains: Domain[] = [
   {
     id: "personal-profile",
     label: "Personal profile",
-    status: "started",
+    status: "needs_review",
     priority: "medium",
     teacher: "heidi",
-    lastPracticed: "2026-07-02",
-    nextAction: "Make the origin/residence/exam-goal intro automatic, then time the full answer.",
-    note: "Can explain background with support; still switches languages under pressure.",
+    lastPracticed: "2026-07-03",
+    nextAction: "Extend the self-introduction to two minutes with one closing sentence, then repeat without French/English.",
+    note: "Can produce the core intro chunks; still runs short and needs cleaner German-only delivery.",
   },
   {
     id: "housing",
@@ -166,10 +166,10 @@ export const domains: Domain[] = [
     label: "Transport / directions",
     status: "started",
     priority: "medium",
-    teacher: "patrick",
-    lastPracticed: "2026-06-15",
-    nextAction: "More listening drills on real announcements — numbers and platform changes.",
-    note: "Understands simple directions; misses numbers in fast announcements.",
+    teacher: "heidi",
+    lastPracticed: "2026-07-03",
+    nextAction: "Describe a station photo and drill 'warten auf den Zug', delays, platforms and personal transport habits.",
+    note: "Practised train-station picture description and accusative chunks; fast announcement listening still needs Patrick.",
   },
   {
     id: "leisure",
@@ -233,12 +233,12 @@ export const domains: Domain[] = [
   {
     id: "digital-services",
     label: "Digital services / appointments",
-    status: "not_covered",
+    status: "started",
     priority: "low",
     teacher: "denajder",
-    lastPracticed: null,
-    nextAction: "Practice booking or changing an online appointment using simple written German.",
-    note: "Good bridge between administration vocabulary and writing tasks.",
+    lastPracticed: "2026-07-03",
+    nextAction: "Write one appointment-change email independently under time pressure.",
+    note: "Supported appointment-rescheduling email practised with Heidi; formal formulas and cases still need review.",
   },
 ];
 
@@ -267,9 +267,13 @@ export const writingTasks: WritingTask[] = [
   {
     id: "appointment-change",
     label: "Cancel or move an appointment",
-    status: "started",
-    mistakes: ["Sometimes omits the closing formula"],
-    nextDrill: "Write a full version from scratch, then check the ca. 40-word target.",
+    status: "needs_review",
+    mistakes: [
+      "Sometimes omits the closing formula",
+      "Needs support for formal greeting, date and Rückmeldung formula",
+      "Case errors: den Termin, einen Arzt, zu unserem Termin",
+    ],
+    nextDrill: "Timed 40-60 word appointment-change email without a formula sheet, then correct only cases and word order.",
   },
   {
     id: "information-request",
@@ -281,9 +285,9 @@ export const writingTasks: WritingTask[] = [
   {
     id: "apology-explanation",
     label: "Apologise / explain a problem",
-    status: "not_covered",
-    mistakes: [],
-    nextDrill: "First attempt: explain why a delivery/appointment needs to change.",
+    status: "started",
+    mistakes: ["Reason sentence needed teacher support: krank sein, Arzt besuchen, leider nicht kommen können"],
+    nextDrill: "Write three short excuse sentences for an appointment, delivery and course absence.",
   },
   {
     id: "neighbour-message",
@@ -303,14 +307,14 @@ export const speakingChecklist: SpeakingItem[] = [
   {
     id: "self-introduction",
     label: "2-minute self-introduction",
-    status: "started",
-    note: "Fluent to ~90 seconds; needs a closing line to reach 2 minutes.",
+    status: "needs_review",
+    note: "Core chunks are available, but the July 3 attempt was still short and needed support to expand free-time details.",
   },
   {
     id: "picture-card",
     label: "Picture-card structure",
-    status: "started",
-    note: "First attempt done (leisure topic); ran short, giving an opinion was the weak step.",
+    status: "needs_review",
+    note: "Second attempt done with a train-station photo; can start the task, but needs longer description, opinion variety and case control.",
   },
   {
     id: "follow-up-questions",
@@ -653,6 +657,61 @@ export const lessonLogs: LessonLog[] = [
     repeatNext:
       "Run German-only vocabulary drills by domain, then start Swiss German key-fact listening with short voicemails.",
   },
+  {
+    id: "l13",
+    date: "2026-07-03",
+    teacher: "heidi",
+    domains: ["personal-profile", "work-study", "leisure", "transport", "health", "digital-services"],
+    skills: ["sprechen", "schreiben"],
+    practiced:
+      "Second Heidi lesson: self-introduction, train-station picture-card description, opinion phrases with ich denke/glaube/finde/meine, dass word order, accusative basics, and a supported formal email to postpone an appointment.",
+    vocabulary: [
+      "französisch",
+      "die eigene Erfahrung",
+      "der Bahnhof",
+      "der Zug",
+      "die Verspätung",
+      "die Kenntnis",
+      "der Termin",
+      "die Rückmeldung",
+      "die baldige Rückmeldung",
+      "die Ausländerbehörde",
+    ],
+    verbs: [
+      "auswählen",
+      "warten auf",
+      "nehmen",
+      "sich erinnern",
+      "tun",
+      "machen",
+      "schaffen",
+      "verschieben",
+      "vereinbaren",
+      "besuchen",
+      "schicken",
+    ],
+    grammar: [
+      "Verb-final word order after dass: Ich denke, dass das Wetter kalt ist.",
+      "Modal verb at the end in dass clauses: Ich denke, dass ich es tun kann.",
+      "Accusative articles: der -> den, das -> das, die -> die.",
+      "warten auf + Akkusativ: Sie warten auf den Zug.",
+      "dir vs dich: Ich sehe dich; ich schicke dir.",
+      "Formal email punctuation: lowercase after Sehr geehrte Frau Kamrani,",
+      "Polite Konjunktiv II: Können wir den Termin ... vereinbaren?",
+    ],
+    mistakes: [
+      "Self-introduction still too short for the exam; needs more detail and a closing line.",
+      "Picture-card answer needed support for structure, length and opinion language.",
+      "Article/case errors: auf den Zug, den Termin, einen Arzt.",
+      "Word order after dass not automatic yet.",
+      "Frequent switch to French/English when searching for words.",
+      "Formal email formulas needed teacher support: greeting, closing and Rückmeldung sentence.",
+    ],
+    canNowDo:
+      "Start a picture-card description about a train-station scene and write a supported appointment-rescheduling email with excuse, new time and formal closing.",
+    repeatNext:
+      "Repeat the same two tasks independently: one 5-minute picture-card answer and one timed 40-60 word appointment-change email without teacher-supplied formulas.",
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -727,6 +786,20 @@ export const recurringMistakes: RecurringMistake[] = [
     mistake: "Mixes up dative/accusative after two-way prepositions (in, auf, bei)",
     example: "Ich gehe in der Apotheke. (should be 'in die Apotheke')",
     correction: "Drill motion (accusative) vs. location (dative) minimal pairs",
+    relatedSkills: ["sprechen", "schreiben"],
+  },
+  {
+    id: "dass-word-order",
+    mistake: "Verb-final word order after 'dass' is not automatic",
+    example: "Ich denke, das Wetter kalt ist.",
+    correction: "Ich denke, dass das Wetter kalt ist.",
+    relatedSkills: ["sprechen", "schreiben"],
+  },
+  {
+    id: "accusative-articles",
+    mistake: "Accusative masculine article is often left as 'der' or avoided",
+    example: "Ich nehme der Zug / Sie warten einen Zug.",
+    correction: "Ich nehme den Zug / Sie warten auf den Zug.",
     relatedSkills: ["sprechen", "schreiben"],
   },
   {
