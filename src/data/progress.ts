@@ -128,9 +128,9 @@ export const domains: Domain[] = [
     status: "needs_review",
     priority: "high",
     teacher: "heidi",
-    lastPracticed: "2026-07-01",
-    nextAction: "Roleplay: doctor appointment + pharmacy conversation + follow-up questions.",
-    note: "Can handle simple health-notice reading with support; spoken doctor/pharmacy scenario still needs a full roleplay.",
+    lastPracticed: "2026-07-05",
+    nextAction: "Roleplay: doctor appointment + pharmacy conversation + follow-up questions, then repeat one Swiss German doctor voicemail.",
+    note: "Can handle simple health-notice reading with support and now recognises a model Swiss German doctor-appointment phrase; spoken doctor/pharmacy scenario still needs a full roleplay.",
   },
   {
     id: "gemeinde",
@@ -208,9 +208,9 @@ export const domains: Domain[] = [
     status: "needs_review",
     priority: "high",
     teacher: "patrick",
-    lastPracticed: "2026-06-28",
-    nextAction: "Weekly voicemail drill — extract key facts only, not full comprehension.",
-    note: "Understands isolated words only; numbers and times are hardest.",
+    lastPracticed: "2026-07-05",
+    nextAction: "Three Swiss German voicemail drills — extract date, time, phone number and requested action before checking the transcript.",
+    note: "Can recognise some greetings, numbers, dates and phone-number chunks after repetition; still confuses fast grouped numbers and phrase boundaries such as 'Ziit am 9'.",
   },
   {
     id: "money-insurance",
@@ -823,6 +823,46 @@ export const lessonLogs: LessonLog[] = [
     repeatNext:
       "Repeat housing/neighbour roleplays German-only, then write a 40-60 word neighbour message about noise or rubbish without teacher-supplied formulas.",
   },
+  {
+    id: "l16",
+    date: "2026-07-05",
+    teacher: "patrick",
+    domains: ["personal-profile", "health", "swiss-german"],
+    skills: ["hoeren", "sprechen"],
+    practiced:
+      "Third Patrick lesson: Swiss German survival for greetings, self-introduction, small talk, numbers, dates, phone numbers and a doctor-appointment phrase. Practised extracting appointment dates and phone numbers from Swiss German speech, then drilled random numbers.",
+    vocabulary: [
+      "Hoi",
+      "Grüezi",
+      "Ich bin de Pierre",
+      "Wie gahts?",
+      "Wie laufts?",
+      "Ziit",
+      "Numme",
+      "de Arzt",
+      "Bauchschmerze",
+      "min Chopf",
+      "tuet weh",
+      "will",
+    ],
+    verbs: ["ha / han", "gseh", "weh tue", "hätti", "lauffe"],
+    grammar: [
+      "Swiss German will can mean standard German weil.",
+      "Swiss German number recognition: eis, zwei, drü, vier, foif/feuf, siebe, nün, zeh, zwänzg, drisg.",
+      "Appointment phrase: Ich hätt Ziit am ...",
+      "Phone numbers should be written in chunks, not translated word by word.",
+    ],
+    mistakes: [
+      "Needed repetition for fast Swiss German appointment sentences.",
+      "Confused phrase boundary in 'Ziit am 9. September' and briefly heard it as 19 September.",
+      "Still struggles with Swiss German phone-number sounds, especially grouped numbers such as 20 50 and 10 82.",
+      "Doctor-call phrase was mostly teacher-modelled, not independently produced.",
+    ],
+    canNowDo:
+      "Recognise and practise basic Swiss German greetings, identify some dates and phone-number chunks after repetition, and understand a model doctor-appointment sentence with symptoms.",
+    repeatNext:
+      "Run three exam-style Swiss German voicemail drills without early transcript help: doctor appointment, appointment change and transport delay. Require caller, date, time, number and action.",
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -835,7 +875,7 @@ export const plannedSessions: PlannedSession[] = [
     date: "2026-07-08",
     teacher: "patrick",
     domain: "swiss-german",
-    goal: "Domain vocabulary sprint, then Swiss German voicemail drill: key facts only.",
+    goal: "Three Swiss German voicemail drills: doctor appointment, appointment change and transport delay. Extract date, time, number and action before checking transcript.",
   },
   {
     id: "p2",
@@ -888,8 +928,8 @@ export const recurringMistakes: RecurringMistake[] = [
   {
     id: "swiss-german-numbers",
     mistake: "Numbers, times and place names are misheard in Swiss German audio",
-    example: "Hears 'zwänzg' as 'zwei', or misses the callback number entirely",
-    correction: "Listen for key info only — pause after each number/name and write it down",
+    example: "Hears 'Ziit am 9' as possibly 19, or misses grouped callback numbers such as 044 737 10 82",
+    correction: "Listen for key info only; chunk dates and phone numbers before trying to translate the whole sentence",
     relatedSkills: ["hoeren"],
   },
   {

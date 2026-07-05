@@ -1133,8 +1133,13 @@ export const examFormatTasks: ExamFormatTask[] = [
     mode: "listening",
     level: "B1",
     examBrief: "Listening task: extract caller, topic, number, date, time and requested action from short everyday audio.",
-    nextDrill: "Three short voicemails: injury, appointment change and transport delay.",
-    mistakes: ["Misses numbers and times in fast speech", "Swiss German clips feel overwhelming"],
+    nextDrill: "Three short Swiss German voicemails: doctor appointment, appointment change and transport delay. Fill caller, date, time, number and action before transcript help.",
+    mistakes: [
+      "Misses numbers and times in fast speech",
+      "Swiss German clips feel overwhelming",
+      "Confuses phrase boundaries around dates, e.g. 'Ziit am 9' can sound like 19",
+      "Grouped phone numbers such as 044 737 10 82 still need repetition",
+    ],
     checkpoints: ["caller", "topic", "date", "time", "number", "action"],
     scenarios: [
       {
