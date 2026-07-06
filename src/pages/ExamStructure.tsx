@@ -246,7 +246,7 @@ export function ExamStructure() {
         </div>
       </section>
 
-      {track === "speaking" && selected.id === "picture-card" && <ImageDescriptionReference />}
+      {track === "speaking" && <ImageDescriptionReference />}
     </div>
   );
 }
@@ -254,6 +254,13 @@ export function ExamStructure() {
 function ImageDescriptionReference() {
   return (
     <div className="flex flex-col gap-4">
+      <div>
+        <p className="text-xs font-semibold uppercase text-muted">Speaking reference</p>
+        <h2 className="mt-1 text-2xl font-semibold tracking-tight text-ink">
+          Bildbeschreibung: position map, sentence bank and model answer
+        </h2>
+      </div>
+
       <Card>
         <div className="grid gap-5 xl:grid-cols-[0.65fr_1.35fr]">
           <div>
