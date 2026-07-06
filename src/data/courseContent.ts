@@ -562,12 +562,32 @@ export const domainCourses: Record<string, DomainCourse> = {
       { de: "die Versicherung", fr: "l'assurance" },
       { de: "die Krankenkasse", fr: "l'assurance maladie" },
       { de: "die Zahlungsfrist", fr: "le delai de paiement" },
+      { de: "die Referenznummer", fr: "le numero de reference" },
+      { de: "der Absender", fr: "l'expediteur" },
+      { de: "der Brief", fr: "la lettre" },
+      { de: "das Bargeld", fr: "l'argent liquide" },
+      { de: "die Miete", fr: "le loyer" },
       { de: "bezahlen", fr: "payer" },
+      { de: "fällig", fr: "echu / a payer", note: "deadline word on bills" },
+      { de: "einschüchternd", fr: "intimidant", note: "official letters can feel this way" },
+      { de: "praktisch", fr: "pratique", note: "Apple Pay answer" },
+      { de: "sinnvoll", fr: "judicieux / utile", note: "insurance opinion word" },
     ],
     keyQuestions: [
+      "Wie wichtig ist Geld für dich in deinem täglichen Leben?",
+      "Bezahlst du im Alltag lieber mit Bargeld, mit Karte oder mit dem Smartphone? Warum?",
+      "Welche Versicherungen sind deiner Meinung nach absolut notwendig?",
+      "Hast du schon einmal eine Zahlungsfrist verpasst?",
+      "Wie fühlst du dich bei einem offiziellen Brief von einer Behörde oder Versicherung?",
+      "Ist es heutzutage schwieriger geworden, Geld für die Zukunft zu sparen?",
+      "Was machst du, wenn du einen Brief oder eine Rechnung sprachlich nicht sofort verstehst?",
+      "Sollten Jugendliche in der Schule mehr über Steuern, Rechnungen und Versicherungen lernen?",
+      "Sind Krankenkassen und Versicherungen in deinem Heimatland ähnlich organisiert wie hier?",
+      "Würdest du dir Geld von Freunden oder Familie leihen, wenn du eine hohe Rechnung bezahlen müsstest?",
       "Wie viel muss man bezahlen?",
       "Bis wann muss man bezahlen?",
       "An wen muss man sich bei Fragen wenden?",
+      "Muss ich bezahlen, ein Dokument senden oder anrufen?",
     ],
     scenarios: [
       {
@@ -580,21 +600,28 @@ export const domainCourses: Record<string, DomainCourse> = {
         setup: "Pierre does not understand a short insurance letter.",
         task: "Ask what the letter means and what he must do next.",
       },
+      {
+        title: "Personal money questions",
+        setup: "The examiner asks how Pierre pays in daily life and how he saves money.",
+        task: "Answer with one personal habit, one reason and one comparison with früher/heutzutage.",
+      },
     ],
     miniCourse: {
-      goal: "Extract money, deadline and action from official letters.",
+      goal: "Discuss daily money habits, then extract amount, deadline and action from official letters.",
       steps: [
-        "Learn invoice and insurance nouns.",
-        "Practise reading one letter for numbers first.",
+        "Learn invoice, insurance and payment words.",
+        "Prepare three personal answers: Apple Pay/Bargeld, Versicherung, Sparen.",
+        "Practise reading one bill or letter for numbers first.",
         "Write one short question asking for clarification.",
       ],
       success: [
+        "Pierre can answer money questions without switching to English for core words.",
         "Pierre identifies amount and deadline correctly.",
         "Pierre can ask whether he must pay, send a document or call back.",
       ],
     },
-    teacherAgent: "Bring a realistic invoice layout; the visual scan matters.",
-    studentAgent: "Numbers first helps me because the letters look intimidating.",
+    teacherAgent: "Pierre has spoken about the topic with support; next validation needs a realistic invoice or insurance letter under light time pressure.",
+    studentAgent: "The personal questions are useful, but I need the letter-reading step to know what I must actually do.",
   },
   emergencies: {
     vocabulary: [
@@ -993,10 +1020,12 @@ export const speakingItemCourses: Record<string, SkillCourseContent> = {
     studentAgent: "I need the ending most because otherwise I just fade out.",
   },
   "picture-card": {
-    examBrief: "B1 oral practice: speak about a scenario-based picture card, connect it to personal life, give an opinion and answer follow-ups.",
-    lessonGoal: "Complete the six-step picture-card structure without running short.",
+    examBrief: "B1 oral practice: choose one picture, explain why, describe visible facts, comment on mood/effect, connect it to personal life, give an opinion and answer follow-ups.",
+    lessonGoal: "Complete a structured picture description without running short or switching language.",
     checkpoints: [
+      "Picture choice is explained with weil.",
       "Describe visible facts first.",
+      "Use position words: im Vordergrund, im Hintergrund, links, rechts, in der Mitte.",
       "Connect to Pierre's own life.",
       "Give an opinion.",
       "Give one example.",
@@ -1004,9 +1033,9 @@ export const speakingItemCourses: Record<string, SkillCourseContent> = {
     ],
     scenarios: [
       {
-        title: "Health picture",
-        setup: "The card shows a doctor's practice or pharmacy.",
-        task: "Describe, compare with Pierre's life, give opinion, answer two follow-ups.",
+        title: "Phone picture from Denajder",
+        setup: "The picture shows two teenagers sitting outside and looking at their phones.",
+        task: "Choose the picture, describe people/clothes/background, add one observation about the statue, then give an opinion on smartphone use.",
       },
       {
         title: "Leisure picture",
@@ -1017,17 +1046,19 @@ export const speakingItemCourses: Record<string, SkillCourseContent> = {
     miniCourse: {
       goal: "Turn a picture into a structured B1 answer.",
       steps: [
+        "Choose the image: Ich habe dieses Bild gewählt, weil ...",
         "Start with Auf dem Bild sehe ich.",
+        "Move through position words: in der Mitte, rechts, links, im Hintergrund.",
         "Add Bei mir ist es so, dass.",
         "Force an opinion with Ich finde das wichtig, weil.",
       ],
       success: [
-        "Pierre speaks beyond description.",
+        "Pierre describes the image for several connected sentences without vocabulary rescue.",
         "The answer reaches opinion and example before time runs out.",
       ],
     },
-    teacherAgent: "The opinion step is mandatory; stop the exercise if Pierre only lists objects.",
-    studentAgent: "The sentence starters are useful because they tell me what comes next.",
+    teacherAgent: "The July 6 phone-picture attempt reached visible description with support; next time require choice, positions, opinion and one follow-up without English/French.",
+    studentAgent: "The position map helps because I can move around the picture instead of guessing what to say next.",
   },
   "follow-up-questions": {
     examBrief: "B1 oral practice: answer follow-ups, ask for repetition, repair confusion and stay communicative.",

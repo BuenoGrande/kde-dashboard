@@ -11,7 +11,14 @@ import {
   type SkillCourseContent,
   writingTaskCourses,
 } from "../data/courseContent";
-import { repairPhrases, speakingStructure, writingStructure } from "../data/reference";
+import {
+  describedLessonImage,
+  imageDescriptionGuide,
+  imageDescriptionMap,
+  repairPhrases,
+  speakingStructure,
+  writingStructure,
+} from "../data/reference";
 import { speakingChecklist, writingTasks } from "../data/progress";
 import type { Status } from "../data/types";
 import { STATUS_LABEL, STATUS_ORDER, statusBadgeClasses, statusCounts } from "../lib/status";
@@ -238,6 +245,103 @@ export function ExamStructure() {
           )}
         </div>
       </section>
+
+      {track === "speaking" && selected.id === "picture-card" && <ImageDescriptionReference />}
+    </div>
+  );
+}
+
+function ImageDescriptionReference() {
+  return (
+    <div className="flex flex-col gap-4">
+      <Card>
+        <div className="grid gap-5 xl:grid-cols-[0.65fr_1.35fr]">
+          <div>
+            <p className="text-xs font-semibold uppercase text-muted">Bildbeschreibung</p>
+            <h2 className="mt-1 text-xl font-semibold leading-tight text-ink">Positionen und Kommentar</h2>
+            <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+              {imageDescriptionMap.title}: use the position words first, then add one personal comment or interpretation.
+            </p>
+          </div>
+          <div className="rounded-lg border border-border bg-canvas p-4">
+            <div className="mb-3 text-sm font-semibold text-ink">der Bildrand / der Rand</div>
+            <div className="grid min-h-44 grid-cols-3 grid-rows-5 rounded-md border border-ink/70 bg-surface p-3 text-sm text-ink-soft">
+              <span className="col-start-2 row-start-1 self-start justify-self-center font-semibold text-ink">oben</span>
+              <span className="col-start-3 row-start-1 justify-self-end font-semibold text-ink">in der Ecke</span>
+              <span className="col-start-2 row-start-2 self-center justify-self-center">im Hintergrund</span>
+              <span className="col-start-1 row-start-3 self-center justify-self-start">links</span>
+              <span className="col-start-2 row-start-3 self-center justify-self-center font-semibold underline">
+                in der Mitte / im Zentrum
+              </span>
+              <span className="col-start-3 row-start-3 self-center justify-self-end">rechts</span>
+              <span className="col-start-2 row-start-4 self-center justify-self-center">im Vordergrund</span>
+              <span className="col-start-2 row-start-5 self-end justify-self-center font-semibold text-ink">unten</span>
+            </div>
+            <div className="mt-3 grid gap-2 text-sm text-ink-soft">
+              {imageDescriptionMap.commentPhrases.map((phrase) => (
+                <p key={phrase} className="rounded-md bg-surface px-3 py-2">
+                  {phrase}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <Card>
+        <p className="mb-3 text-xs font-semibold uppercase text-muted">Full sentence bank</p>
+        <div className="grid gap-3 xl:grid-cols-2">
+          {imageDescriptionGuide.map((section) => (
+            <section key={section.title} className="rounded-lg border border-border bg-surface p-4">
+              <h3 className="text-sm font-semibold text-ink">{section.title}</h3>
+              <div className="mt-3 grid gap-3 lg:grid-cols-2">
+                <div>
+                  <p className="mb-2 text-xs font-semibold uppercase text-muted">Questions</p>
+                  <ul className="space-y-2 text-sm text-ink-soft">
+                    {section.prompts.map((prompt) => (
+                      <li key={prompt} className="border-l-2 border-border pl-3">
+                        {prompt}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <p className="mb-2 text-xs font-semibold uppercase text-muted">Reusable phrases</p>
+                  <ul className="space-y-2 text-sm text-ink-soft">
+                    {section.phrases.map((phrase) => (
+                      <li key={phrase} className="border-l-2 border-accent pl-3">
+                        {phrase}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+          ))}
+        </div>
+      </Card>
+
+      <Card>
+        <div className="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
+          <img
+            src={`${import.meta.env.BASE_URL}${describedLessonImage.src}`}
+            alt={describedLessonImage.alt}
+            className="h-full max-h-80 w-full rounded-lg object-cover"
+          />
+          <div>
+            <p className="text-xs font-semibold uppercase text-muted">Denajder lesson image</p>
+            <h2 className="mt-1 text-xl font-semibold text-ink">Simple model answer</h2>
+            <div className="mt-3 grid gap-2">
+              {describedLessonImage.model.map((sentence, index) => (
+                <p key={sentence} className="rounded-lg bg-canvas px-3 py-2 text-sm text-ink-soft">
+                  <span className="mr-2 font-mono text-xs text-muted">{index + 1}</span>
+                  {sentence}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Card>
     </div>
   );
 }
