@@ -6,7 +6,9 @@ import {
   domains,
   lessonLogsSorted,
   nextSessionForTeacher,
+  plannedSessionsSorted,
   priorities,
+  recurringMistakes,
   skillLevels,
   speakingChecklist,
   teacherById,
@@ -150,9 +152,34 @@ function coverageLabel(pct: number) {
   return "Just starting";
 }
 
+function progressWidth(status: Status) {
+  if (status === "ready") return "100%";
+  if (status === "needs_review") return "70%";
+  if (status === "started") return "44%";
+  if (status === "planned") return "22%";
+  return "10%";
+}
+
+function SkillLane({ label, level, status }: { label: string; level: string; status: Status }) {
+  return (
+    <div className="rounded-lg border border-border/70 bg-surface/72 px-3 py-2.5">
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <span className="font-semibold leading-tight text-ink">{label}</span>
+        <span className={`rounded-md px-2 py-1 text-[0.68rem] font-semibold uppercase ${statusBadgeClasses(status)}`}>
+          {level} · {STATUS_LABEL[status]}
+        </span>
+      </div>
+      <div className="h-1.5 overflow-hidden rounded-full bg-border/80">
+        <div className="h-full rounded-full bg-ink/72" style={{ width: progressWidth(status) }} />
+      </div>
+    </div>
+  );
+}
+
 export function Dashboard() {
   const recentLogs = lessonLogsSorted().slice(0, 3);
   const topPriorities = priorities.slice(0, 4);
+  const secondaryPriorities = priorities.slice(4, 6);
   const listeningTasks = examFormatTasks.filter((item) => item.mode === "listening");
   const readingTasks = examFormatTasks.filter((item) => item.mode === "reading");
   const allCompetencies = [
@@ -169,13 +196,23 @@ export function Dashboard() {
   const watchDomains = domains.filter((domain) => domain.priority === "high" && domain.status !== "ready").slice(0, 3);
   const reviewWriting = writingTasks.filter((task) => task.status !== "ready").slice(0, 2);
   const reviewSpeaking = speakingChecklist.filter((task) => task.status !== "ready").slice(0, 2);
+  const preparationPath = ["personal-profile", "health", "gemeinde", "swiss-german"]
+    .map((id) => domains.find((domain) => domain.id === id))
+    .filter((domain): domain is (typeof domains)[number] => Boolean(domain));
+  const upcomingSessions = plannedSessionsSorted().slice(0, 3);
+  const focusSteps = [
+    { label: topPriorities[0]?.text, href: "/exam?track=speaking" },
+    { label: watchDomains[0]?.nextAction, href: watchDomains[0] ? `/domains/${watchDomains[0].id}` : "/domains" },
+    { label: reviewWriting[0]?.nextDrill, href: reviewWriting[0] ? `/exam?track=writing&item=${reviewWriting[0].id}` : "/exam" },
+  ].filter((item): item is { label: string; href: string } => Boolean(item.label));
+  const activeMistakes = recurringMistakes.slice(0, 3);
 
   return (
     <div className="flex flex-col gap-6">
-      <section className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
+      <section className="grid gap-5 xl:grid-cols-[1.1fr_0.9fr]">
         <Card className="overflow-hidden bg-panel">
-          <div className="grid gap-6 md:grid-cols-[0.95fr_1.05fr]">
-            <div>
+          <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+            <div className="flex min-h-full flex-col">
               <p className="text-xs font-semibold uppercase text-muted">Preparation map</p>
               <h1 className="mt-2 text-4xl font-semibold leading-none tracking-tight text-ink">
                 {coverageLabel(overall)}
@@ -187,6 +224,37 @@ export function Dashboard() {
                 <span className="rounded-md bg-surface px-2.5 py-1.5">
                   Oral: {readinessFromStatuses(oralGate)}%
                 </span>
+              </div>
+              <div className="mt-6 rounded-lg border border-border/80 bg-surface/72 p-4">
+                <div className="mb-3 flex items-end justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase text-muted">Preparation path</p>
+                    <p className="mt-1 text-sm font-semibold text-ink">Four moves to exam-ready</p>
+                  </div>
+                  <span className="font-mono text-xs text-muted">{preparationPath.length} tracks</span>
+                </div>
+                <div className="space-y-2">
+                  {preparationPath.map((domain, index) => (
+                    <Link
+                      key={domain.id}
+                      to={`/domains/${domain.id}`}
+                      className="group grid grid-cols-[1.75rem_1fr] gap-3 rounded-md px-1.5 py-1.5 transition duration-200 hover:bg-canvas focus:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+                    >
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-canvas font-mono text-[0.68rem] font-semibold text-muted">
+                        {index + 1}
+                      </span>
+                      <span className="min-w-0">
+                        <span className="flex items-center justify-between gap-2">
+                          <span className="line-clamp-1 text-sm font-semibold text-ink">{domain.label}</span>
+                          <span className="text-[0.68rem] font-semibold uppercase text-muted group-hover:text-ink">
+                            {STATUS_LABEL[domain.status]}
+                          </span>
+                        </span>
+                        <span className="mt-0.5 line-clamp-1 text-xs leading-relaxed text-ink-soft">{domain.nextAction}</span>
+                      </span>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
             <div className="rounded-lg bg-surface p-5">
@@ -209,12 +277,23 @@ export function Dashboard() {
                 <span className="rounded-md bg-canvas px-2.5 py-1.5">{counts.started} started</span>
                 <span className="rounded-md bg-canvas px-2.5 py-1.5">{counts.ready} ready</span>
               </div>
-              <div className="mt-4 space-y-1.5 text-xs text-ink-soft">
-                {closestToReady.map((item) => (
-                  <p key={item.id}>
-                    <span className="font-semibold text-muted">Closest to ready:</span> {item.label}
-                  </p>
+              <div className="mt-5 grid gap-2">
+                {skillLevels.map((skill) => (
+                  <SkillLane key={skill.id} label={skill.label} level={skill.level} status={skill.status} />
                 ))}
+              </div>
+              <div className="mt-4 rounded-lg border border-border/70 bg-canvas px-3 py-3">
+                <div className="mb-2 flex items-center justify-between gap-3">
+                  <p className="text-xs font-semibold uppercase text-muted">Closest to ready</p>
+                  <span className="text-xs font-semibold text-ink">{closestToReady.length} quick wins</span>
+                </div>
+                <div className="grid gap-1.5 text-sm text-ink-soft">
+                  {closestToReady.map((item) => (
+                    <p key={item.id} className="line-clamp-1">
+                      <span className="font-semibold text-ink">{item.label}</span>
+                    </p>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -256,7 +335,7 @@ export function Dashboard() {
         />
       </section>
 
-      <section className="grid gap-5 lg:grid-cols-[1fr_0.95fr]">
+      <section className="grid gap-5 xl:grid-cols-[1fr_0.95fr]">
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {watchDomains.map((domain, index) => (
             <CompetencyTile
@@ -291,6 +370,21 @@ export function Dashboard() {
               index={index + watchDomains.length + reviewWriting.length}
             />
           ))}
+          <Card className="min-h-44 bg-panel md:col-span-2 xl:col-span-2">
+            <CardHeading eyebrow="Today's focus" title="One clean study loop" />
+            <div className="grid gap-2">
+              {focusSteps.map((step, index) => (
+                <Link
+                  key={step.href}
+                  to={step.href}
+                  className="grid grid-cols-[1.75rem_1fr] gap-3 rounded-md bg-surface/72 px-3 py-2 transition duration-200 hover:bg-surface focus:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+                >
+                  <span className="font-mono text-xs text-muted">{index + 1}</span>
+                  <span className="line-clamp-2 text-sm leading-relaxed text-ink-soft">{step.label}</span>
+                </Link>
+              ))}
+            </div>
+          </Card>
         </div>
 
         <div className="flex flex-col gap-4">
@@ -304,6 +398,48 @@ export function Dashboard() {
                 </li>
               ))}
             </ol>
+            {secondaryPriorities.length > 0 && (
+              <div className="mt-5 border-t border-border pt-4">
+                <p className="mb-2 text-xs font-semibold uppercase text-muted">After that</p>
+                <div className="grid gap-2 text-sm text-ink-soft">
+                  {secondaryPriorities.map((priority) => (
+                    <p key={priority.id} className="line-clamp-1">
+                      <span className="mr-2 font-mono text-xs text-muted">{priority.rank}</span>
+                      {priority.text}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            )}
+          </Card>
+          <Card>
+            <CardHeading eyebrow="Practice rhythm" title="Next sessions" />
+            <div className="grid gap-2">
+              {upcomingSessions.map((session) => (
+                <Link
+                  key={session.id}
+                  to={`/domains/${session.domain}`}
+                  className="rounded-lg bg-canvas px-3 py-2.5 transition duration-200 hover:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-ink"
+                >
+                  <div className="mb-1 flex items-center justify-between gap-3">
+                    <span className="font-semibold text-ink">{teacherById(session.teacher)?.name}</span>
+                    <span className="font-mono text-xs text-muted">{session.date}</span>
+                  </div>
+                  <p className="line-clamp-2 text-sm leading-relaxed text-ink-soft">{session.goal}</p>
+                </Link>
+              ))}
+            </div>
+          </Card>
+          <Card>
+            <CardHeading eyebrow="Mistake watch" title="Patterns to remove" />
+            <div className="grid gap-3 text-sm">
+              {activeMistakes.map((mistake) => (
+                <div key={mistake.id} className="border-l-2 border-accent/45 pl-3">
+                  <p className="font-semibold leading-snug text-ink">{mistake.mistake}</p>
+                  <p className="mt-1 line-clamp-1 text-ink-soft">{mistake.correction}</p>
+                </div>
+              ))}
+            </div>
           </Card>
         </div>
       </section>
