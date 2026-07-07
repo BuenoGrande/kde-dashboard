@@ -1123,11 +1123,12 @@ export const examFormatTasks: ExamFormatTask[] = [
     mode: "reading",
     level: "A2",
     examBrief: "Reading task: extract date, time, place, deadline and required action from notices, programmes or letters.",
-    nextDrill: "Repeat a new notice under time pressure: answer date, place, organiser, action and deadline without vocabulary rescue.",
+    nextDrill: "Repeat a new notice or shop-service text under time pressure: answer date, place, organiser, action and deadline without vocabulary rescue.",
     mistakes: [
       "Misses registration deadlines when the text is dense",
       "Needs vocabulary support for common notice words such as außerhalb, Verein, Anzeige and Wettbewerb",
       "Not yet timed; tends to translate instead of scanning only key facts",
+      "Completed one supported shop-service reading cleanly; still needs a timed repeat without vocabulary rescue",
     ],
     checkpoints: ["who", "what", "where", "when", "deadline", "required document"],
     scenarios: [
