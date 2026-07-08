@@ -150,7 +150,7 @@ export function Trainer() {
       answer: domain.note ?? "Use a concrete example, a reason, and one repair phrase if needed.",
       hint: domain.label,
       domain: domain.label,
-      source: "Planned domain",
+      source: "To cover",
     }));
 
   const allItems = [...seedItems, ...lessonItems, ...writingItems, ...speakingItems, ...domainItems];
@@ -192,7 +192,7 @@ export function Trainer() {
           <div className="mb-5 flex flex-wrap gap-2">
             {[
               ["due", "Due"],
-              ["weak", "Weak"],
+              ["weak", "Repeat"],
               ["lesson", "Lesson words"],
               ["words", "Words"],
               ["speaking", "Speaking"],
@@ -258,8 +258,8 @@ export function Trainer() {
                 <button className="rounded-md bg-ink px-3 py-2 text-sm font-medium text-white" onClick={() => mark("known")}>
                   Known
                 </button>
-                <button className="rounded-md bg-status-yellow-bg px-3 py-2 text-sm font-medium text-status-yellow-fg" onClick={() => mark("review")}>
-                  Needs review
+                <button className="rounded-md bg-status-orange-bg px-3 py-2 text-sm font-medium text-status-orange-fg" onClick={() => mark("review")}>
+                  Repeat
                 </button>
               </div>
             </div>
@@ -279,7 +279,7 @@ export function Trainer() {
             </div>
             <div className="rounded-lg bg-canvas p-3">
               <p className="font-mono text-2xl font-semibold text-ink">{reviewCount}</p>
-              <p className="text-muted">review</p>
+              <p className="text-muted">repeat</p>
             </div>
           </div>
           <p className="mt-4 text-sm text-ink-soft">

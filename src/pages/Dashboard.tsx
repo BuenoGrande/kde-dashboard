@@ -4,6 +4,7 @@ import { CompetencyTile } from "../components/CompetencyTile";
 import { examFormatTasks } from "../data/courseContent";
 import {
   domains,
+  domainCoverageStatus,
   lessonLogsSorted,
   nextSessionForTeacher,
   plannedSessionsSorted,
@@ -18,9 +19,10 @@ import {
 import type { Status } from "../data/types";
 import {
   STATUS_LABEL,
+  coveredStatus,
+  coverageCounts,
   readinessFromStatuses,
   statusBadgeClasses,
-  statusCounts,
 } from "../lib/status";
 
 interface BoardSummaryProps {
@@ -33,7 +35,7 @@ interface BoardSummaryProps {
 function coverageTone(pct: number) {
   if (pct >= 76) {
     return {
-      card: "border-status-green-fg/25 bg-status-green-bg/38",
+      card: "border-status-green-fg/45 bg-status-green-bg/90",
       bar: "bg-status-green-fg",
       text: "text-status-green-fg",
       label: "solid",
@@ -41,35 +43,32 @@ function coverageTone(pct: number) {
   }
   if (pct >= 51) {
     return {
-      card: "border-status-yellow-fg/25 bg-status-yellow-bg/42",
-      bar: "bg-status-yellow-fg",
-      text: "text-status-yellow-fg",
-      label: "building",
+      card: "border-status-teal-fg/45 bg-status-teal-bg/90",
+      bar: "bg-status-teal-fg",
+      text: "text-status-teal-fg",
+      label: "real progress",
     };
   }
   if (pct >= 26) {
     return {
-      card: "border-status-orange-fg/25 bg-status-orange-bg/35",
+      card: "border-status-orange-fg/45 bg-status-orange-bg/90",
       bar: "bg-status-orange-fg",
       text: "text-status-orange-fg",
-      label: "review",
+      label: "in motion",
     };
   }
   return {
-    card: "border-status-grey-fg/20 bg-status-grey-bg/45",
+    card: "border-status-grey-fg/35 bg-status-grey-bg/90",
     bar: "bg-status-grey-fg",
     text: "text-status-grey-fg",
-    label: "new",
+    label: "mapped",
   };
 }
 
 function BoardSummary({ title, href, statusItems, detail }: BoardSummaryProps) {
-  const counts = statusCounts(statusItems);
+  const coverage = coverageCounts(statusItems);
   const readiness = readinessFromStatuses(statusItems);
   const tone = coverageTone(readiness);
-  const visibleCounts = (["needs_review", "not_covered", "ready"] satisfies Status[]).filter(
-    (status) => counts[status] > 0,
-  );
 
   return (
     <Link
@@ -90,21 +89,18 @@ function BoardSummary({ title, href, statusItems, detail }: BoardSummaryProps) {
           </div>
           <div className="mt-3 flex flex-wrap items-center gap-1.5 text-[0.68rem] font-semibold uppercase text-muted">
             <span className={`mr-1 ${tone.text}`}>{tone.label}</span>
-            {visibleCounts.map((status) => (
-              <span key={status} className="rounded bg-surface/62 px-1.5 py-0.5 leading-tight">
-                {counts[status]} {STATUS_LABEL[status]}
-              </span>
-            ))}
+            <span className="rounded bg-surface/62 px-1.5 py-0.5 leading-tight">{coverage.covered} covered</span>
+            <span className="rounded bg-surface/62 px-1.5 py-0.5 leading-tight">{coverage.toCover} to cover</span>
           </div>
         </div>
       </div>
       <div className="mt-4 space-y-1.5 text-xs text-ink-soft">
         {statusItems
-          .filter((item) => item.status !== "ready")
+          .filter((item) => coveredStatus(item.status) !== "ready")
           .slice(0, 2)
           .map((item) => (
             <p key={item.id} className="line-clamp-1">
-              <span className="font-semibold text-muted">{STATUS_LABEL[item.status]}:</span> {item.label}
+              <span className="font-semibold text-muted">To cover:</span> {item.label}
             </p>
           ))}
       </div>
@@ -147,9 +143,9 @@ function NextLessonsByTeacher() {
 
 function coverageLabel(pct: number) {
   if (pct >= 76) return "Broad coverage";
-  if (pct >= 51) return "Building coverage";
-  if (pct >= 26) return "Early preparation";
-  return "Just starting";
+  if (pct >= 51) return "Real progress";
+  if (pct >= 26) return "Active preparation";
+  return "Mapped, ready to start";
 }
 
 function progressWidth(status: Status) {
@@ -183,16 +179,16 @@ export function Dashboard() {
   const listeningTasks = examFormatTasks.filter((item) => item.mode === "listening");
   const readingTasks = examFormatTasks.filter((item) => item.mode === "reading");
   const allCompetencies = [
-    ...domains.map((item) => ({ id: `domain-${item.id}`, label: item.label, status: item.status })),
+    ...domains.map((item) => ({ id: `domain-${item.id}`, label: item.label, status: domainCoverageStatus(item.id) })),
     ...writingTasks.map((item) => ({ id: `writing-${item.id}`, label: item.label, status: item.status })),
     ...speakingChecklist.map((item) => ({ id: `speaking-${item.id}`, label: item.label, status: item.status })),
     ...examFormatTasks.map((item) => ({ id: `exam-${item.id}`, label: item.label, status: item.status })),
   ];
   const overall = readinessFromStatuses(allCompetencies);
-  const counts = statusCounts(allCompetencies);
+  const coverage = coverageCounts(allCompetencies);
   const writtenGate = skillLevels.filter((skill) => ["hoeren", "lesen", "schreiben"].includes(skill.id));
   const oralGate = skillLevels.filter((skill) => skill.id === "sprechen");
-  const closestToReady = allCompetencies.filter((item) => item.status === "needs_review").slice(0, 2);
+  const toCoverSoon = allCompetencies.filter((item) => coveredStatus(item.status) !== "ready").slice(0, 2);
   const watchDomains = domains.filter((domain) => domain.priority === "high" && domain.status !== "ready").slice(0, 3);
   const reviewWriting = writingTasks.filter((task) => task.status !== "ready").slice(0, 2);
   const reviewSpeaking = speakingChecklist.filter((task) => task.status !== "ready").slice(0, 2);
@@ -264,18 +260,16 @@ export function Dashboard() {
                   <p className="font-mono text-6xl font-semibold leading-none text-ink">{overall}%</p>
                 </div>
                 <p className="text-right text-sm text-ink-soft">
-                  <span className="block font-semibold text-ink">{counts.ready}</span>
-                  exam-ready items
+                  <span className="block font-semibold text-ink">{coverage.covered}</span>
+                  covered items
                 </p>
               </div>
               <div className="mt-5 h-3 overflow-hidden rounded-full bg-border">
                 <div className="h-full rounded-full bg-accent" style={{ width: `${overall}%` }} />
               </div>
               <div className="mt-4 grid grid-cols-2 gap-2 text-xs font-semibold uppercase text-muted">
-                <span className="rounded-md bg-canvas px-2.5 py-1.5">{counts.needs_review} to review</span>
-                <span className="rounded-md bg-canvas px-2.5 py-1.5">{counts.not_covered} not covered</span>
-                <span className="rounded-md bg-canvas px-2.5 py-1.5">{counts.started} started</span>
-                <span className="rounded-md bg-canvas px-2.5 py-1.5">{counts.ready} ready</span>
+                <span className="rounded-md bg-canvas px-2.5 py-1.5">{coverage.covered} covered</span>
+                <span className="rounded-md bg-canvas px-2.5 py-1.5">{coverage.toCover} to cover</span>
               </div>
               <div className="mt-5 grid gap-2">
                 {skillLevels.map((skill) => (
@@ -284,11 +278,11 @@ export function Dashboard() {
               </div>
               <div className="mt-4 rounded-lg border border-border/70 bg-canvas px-3 py-3">
                 <div className="mb-2 flex items-center justify-between gap-3">
-                  <p className="text-xs font-semibold uppercase text-muted">Closest to ready</p>
-                  <span className="text-xs font-semibold text-ink">{closestToReady.length} quick wins</span>
+                  <p className="text-xs font-semibold uppercase text-muted">To cover</p>
+                  <span className="text-xs font-semibold text-ink">{toCoverSoon.length} left</span>
                 </div>
                 <div className="grid gap-1.5 text-sm text-ink-soft">
-                  {closestToReady.map((item) => (
+                  {toCoverSoon.map((item) => (
                     <p key={item.id} className="line-clamp-1">
                       <span className="font-semibold text-ink">{item.label}</span>
                     </p>

@@ -14,12 +14,13 @@ import type {
   PlannedSession,
   RecurringMistake,
   SkillLevel,
+  Status,
   SpeakingItem,
   Teacher,
   TopPriority,
   WritingTask,
 } from "./types";
-import { readinessFromStatuses, statusCounts } from "../lib/status";
+import { coverageCounts, readinessFromStatuses } from "../lib/status";
 
 // ---------------------------------------------------------------------------
 // THE FOUR KDE SKILLS — one status word each. Detail lives in Domains,
@@ -1119,6 +1120,12 @@ export const recurringMistakes: RecurringMistake[] = [
 export const teacherById = (id: string) => teachers.find((t) => t.id === id);
 export const domainById = (id: string) => domains.find((d) => d.id === id);
 
+export const lessonCountForDomain = (domainId: string) =>
+  lessonLogs.filter((log) => log.domains.includes(domainId)).length;
+
+export const domainCoverageStatus = (domainId: string): Status =>
+  lessonCountForDomain(domainId) > 0 ? "ready" : "not_covered";
+
 export const lessonLogsSorted = () =>
   [...lessonLogs].sort((a, b) => (a.date < b.date ? 1 : -1));
 
@@ -1132,7 +1139,8 @@ export const nextPlannedSession = () => plannedSessionsSorted()[0];
 export const nextSessionForTeacher = (teacherId: string) =>
   plannedSessionsSorted().find((p) => p.teacher === teacherId);
 
-export const overallReadiness = () => readinessFromStatuses(domains);
+export const overallReadiness = () =>
+  readinessFromStatuses(domains.map((domain) => ({ ...domain, status: domainCoverageStatus(domain.id) })));
 
 export const readinessLabel = (pct: number) => {
   if (pct >= 76) return "Exam-ready";
@@ -1142,11 +1150,9 @@ export const readinessLabel = (pct: number) => {
 };
 
 export const domainStatusCounts = () => {
-  const counts = statusCounts(domains);
+  const counts = coverageCounts(domains.map((domain) => ({ ...domain, status: domainCoverageStatus(domain.id) })));
   return {
-    not_covered: counts.not_covered,
-    started: counts.started,
-    needs_review: counts.needs_review,
-    ready: counts.ready,
+    covered: counts.covered,
+    to_cover: counts.toCover,
   };
 };

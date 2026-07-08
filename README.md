@@ -12,18 +12,16 @@ The checked-in lesson history now contains real transcript-derived session
 notes only. Future lessons should be appended with the same evidence-first
 style — see below.
 
-## Design principle: one status, everywhere
+## Design principle: one visible coverage state
 
-Every trackable thing (a domain, a writing task, a speaking checklist item)
-has exactly **one** status, from the same five-value scale:
+The app may keep detailed internal status keys for planning, but the student
+and teacher interface collapses them into one simple question: has Pierre
+covered this yet?
 
-| Status | Color | Meaning |
+| Visible state | Internal data | Meaning |
 |---|---|---|
-| Not covered | grey | Not started |
-| Started | yellow | Some practice, not stable |
-| Needs review | orange | Practiced, but a real gap remains |
-| Ready | green | Exam-ready |
-| Planned | blue | Scheduled for an upcoming session |
+| Covered | `started`, `needs_review`, `ready` | It appeared in a completed lesson or was attempted. |
+| To cover | `not_covered`, `planned` | No completed-lesson evidence yet. |
 
 There is no skill-by-skill (Hören/Lesen/Schreiben/Sprechen) breakdown per
 domain — the real question for most topics is just "can Pierre handle this
@@ -48,8 +46,8 @@ and [KDE test-provider regulation](https://www.zh.ch/content/dam/zhweb/bilder-do
 ## Pages
 
 - **Dashboard** — one overview for vocabulary domains plus Hören, Lesen,
-  Schreiben and Sprechen practice: validated, needs review, started, not
-  covered, next session, high-priority drills, recent evidence and transcript
+  Schreiben and Sprechen practice: covered, to cover, next session,
+  high-priority drills, recent evidence and transcript
   agent outputs.
 - **Vocabulary** — 15 life domains as a 2D grid of boxes; each click opens a
   mini-course with vocabulary, likely questions, scenarios, professor/student

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import type { Status } from "../data/types";
-import { STATUS_FG, STATUS_LABEL, STATUS_TILE } from "../lib/status";
+import { STATUS_BG, STATUS_FG, STATUS_LABEL, STATUS_TILE } from "../lib/status";
 
 interface CompetencyTileProps {
   title: string;
@@ -35,7 +35,7 @@ function TileBody({
         <div className="flex flex-wrap items-start justify-between gap-2">
           {meta && <p className="text-[0.68rem] font-semibold uppercase leading-snug text-muted">{meta}</p>}
           <span
-            className={`inline-flex max-w-full justify-center rounded-md bg-surface/72 px-2 py-1 text-center text-[0.68rem] font-semibold uppercase leading-tight ${STATUS_FG[status]}`}
+            className={`inline-flex max-w-full justify-center rounded-md px-2 py-1 text-center text-[0.68rem] font-semibold uppercase leading-tight shadow-[inset_0_0_0_1px_rgba(32,37,31,0.08)] ${STATUS_BG[status]} ${STATUS_FG[status]}`}
           >
             {STATUS_LABEL[status]}
           </span>

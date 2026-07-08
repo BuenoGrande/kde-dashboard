@@ -11,22 +11,22 @@
   --color-ink: #20251f;
   --color-ink-soft: #3b433a;
   --color-muted: #788073;
-  --color-accent: #c94f3d;
-  --color-review: #d37a32;
-  --color-planned: #d9edf8;
+  --color-accent: #1f806c;
+  --color-review: #7a4f8c;
+  --color-planned: #bddcf0;
   --color-agent-teacher: #f5eadf;
   --color-agent-student: #e7f2ed;
 
-  --color-status-grey-bg: #eceee7;
-  --color-status-grey-fg: #697063;
-  --color-status-orange-bg: #ffe5cf;
-  --color-status-orange-fg: #9b4f1f;
-  --color-status-yellow-bg: #fff2bd;
-  --color-status-yellow-fg: #8a6813;
-  --color-status-green-bg: #dff1d6;
-  --color-status-green-fg: #347443;
-  --color-status-blue-bg: #d9edf8;
-  --color-status-blue-fg: #276c92;
+  --color-status-grey-bg: #e0e5dd;
+  --color-status-grey-fg: #3f493f;
+  --color-status-orange-bg: #e2c7ef;
+  --color-status-orange-fg: #57306c;
+  --color-status-teal-bg: #bce7de;
+  --color-status-teal-fg: #075f53;
+  --color-status-green-bg: #bee7ad;
+  --color-status-green-fg: #1d652f;
+  --color-status-blue-bg: #bddcf0;
+  --color-status-blue-fg: #1f5f83;
 }
 
 html {
@@ -55,7 +55,7 @@ a {
 }
 
 ::selection {
-  background: rgba(201, 79, 61, 0.18);
+  background: rgba(31, 128, 108, 0.22);
 }
 
 @keyframes tile-in {

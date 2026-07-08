@@ -21,7 +21,7 @@ import {
 } from "../data/reference";
 import { speakingChecklist, writingTasks } from "../data/progress";
 import type { Status } from "../data/types";
-import { STATUS_LABEL, STATUS_ORDER, statusBadgeClasses, statusCounts } from "../lib/status";
+import { STATUS_LABEL, coverageCounts, statusBadgeClasses } from "../lib/status";
 
 interface ExamItem {
   id: string;
@@ -94,7 +94,7 @@ export function ExamStructure() {
   const requestedItem = searchParams.get("item");
   const selected = items.find((item) => item.id === requestedItem) ?? items[0];
   const trackInfo = kdeExamStructure.find((item) => item.id === track) ?? kdeExamStructure[0];
-  const counts = statusCounts(items);
+  const counts = coverageCounts(items);
 
   function setTrack(nextTrack: ExamTrackId) {
     setSearchParams({ track: nextTrack });
@@ -155,11 +155,8 @@ export function ExamStructure() {
       <section className="grid gap-4 lg:grid-cols-[0.95fr_1.25fr]">
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase text-muted">
-            {STATUS_ORDER.filter((status) => counts[status] > 0).map((status) => (
-              <span key={status} className="rounded-md bg-surface px-2.5 py-1">
-                {counts[status]} {STATUS_LABEL[status]}
-              </span>
-            ))}
+            <span className="rounded-md bg-surface px-2.5 py-1">{counts.covered} covered</span>
+            <span className="rounded-md bg-surface px-2.5 py-1">{counts.toCover} to cover</span>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
             {items.map((item, index) => (
